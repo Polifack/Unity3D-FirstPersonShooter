@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour
     void doRotate(float mouseX)
     {
         // Create a quaternion according to our rotation needs
+        // we create it from the euler angles of the player
+        // we modify the rotation in z axis
         float xDeltaRot = t.rotation.eulerAngles.z - mouseX;
         Quaternion playerRotation = Quaternion.Euler(t.rotation.eulerAngles.x, t.rotation.eulerAngles.y, xDeltaRot);
 
@@ -57,8 +59,9 @@ public class PlayerController : MonoBehaviour
     void doRotateCamera(float mouseY)
     {
         // Create a quaternion according to our needs
+        // we create it from the local euler angles of the camera
+        // we modify the Y axis
         Quaternion camRotation = Quaternion.Euler(c.transform.localRotation.eulerAngles + new Vector3(0, mouseY, 0));
-        Debug.Log(camRotation);
 
         // Avoid rotating 360 degrees
         if ((camRotation.y > -0.25f) || (camRotation.y < -0.75f))
