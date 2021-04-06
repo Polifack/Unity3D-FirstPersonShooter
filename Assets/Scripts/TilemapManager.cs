@@ -15,7 +15,7 @@ public class TilemapManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Hello moto");
+        Debug.Log("[*] Tilemap manager encendido y listo para la accion");
         // Get component and initialize dict
         tilemap = GetComponent<Tilemap>();
         tileDictionary = new Dictionary<TileBase, TileData>();
@@ -56,8 +56,8 @@ public class TilemapManager : MonoBehaviour
                         Vector3 tPosition = transform.position+tilePosition+cSize;
 
                         // Instantiate the gameobject in the data and set it as a child
-                        GameObject wall = Instantiate(go, tPosition, Quaternion.identity);
-                        wall.transform.SetParent(this.transform);
+                        GameObject generated = Instantiate(go, tPosition, go.transform.rotation);
+                        generated.transform.SetParent(this.transform);
                     }
                 }
             }

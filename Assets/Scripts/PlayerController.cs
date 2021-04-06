@@ -1,84 +1,141 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float movementSpeed;
-    public float mouseSensitivity; // This could be in a "settings" file
+    public float movementSpeed = 5f;
+    public float m_GroundDistance = 2f;
+    public float m_JumpPower = 1f;
+    private Vector3 m_GroundNormalVector;
 
-    Transform t;
-    Camera c;
 
-    void Start()
+    private Rigidbody m_RigidBody;
+    private Transform m_MainCamera;
+    private bool m_IsGrounded;
+    private float m_GroundAngle;
+    private Vector3 m_CamForward;             //Direccion de movimiento
+    private Vector3 m_Move;
+
+
+    private void Start()
     {
-        t = transform;
-        c = GetComponentInChildren<Camera>();
-    }
-       
-    Vector3 getMovementInput()
-    {
-        float xVal = Input.GetAxis("Horizontal");
-        float zVal = Input.GetAxis("Vertical");
+        m_RigidBody = GetComponent<Rigidbody>();
+        m_MainCamera = Camera.main.transform;
 
-        Vector3 xMove = xVal * -transform.up;
-        Vector3 zMove = zVal * transform.right;
-
-        // Create a input vector based on movement axis
-        Vector3 input = (xMove + zMove);
-        return input;
-    }
-
-    Vector3 getCameraControl()
-    {
-        float xMouse = Input.GetAxisRaw("Mouse X");
-        float yMouse = Input.GetAxisRaw("Mouse Y");
-
-        Vector3 mouseInput = new Vector2(xMouse, yMouse) * mouseSensitivity;
-
-        return mouseInput;
-    }
-
-    void doMove(Vector3 movementInput)
-    {
-        t.position += movementInput * Time.deltaTime * movementSpeed;
-    }
-
-    void doRotate(float mouseX)
-    {
-        // Create a quaternion according to our rotation needs
-        // we create it from the euler angles of the player
-        // we modify the rotation in z axis
-        float xDeltaRot = t.rotation.eulerAngles.z - mouseX;
-        Quaternion playerRotation = Quaternion.Euler(t.rotation.eulerAngles.x, t.rotation.eulerAngles.y, xDeltaRot);
-
-        // Rotate phisically the player
-        t.rotation = playerRotation;
-    }
-
-    void doRotateCamera(float mouseY)
-    {
-        // Create a quaternion according to our needs
-        // we create it from the local euler angles of the camera
-        // we modify the Y axis
-        Quaternion camRotation = Quaternion.Euler(c.transform.localRotation.eulerAngles + new Vector3(0, mouseY, 0));
-
-        // Avoid rotating 360 degrees
-        if ((camRotation.y > -0.25f) || (camRotation.y < -0.75f))
+        if (m_RigidBody == null)
         {
+            Debug.LogWarning("[Warning]: no rigidbody found.");
+        }
+        if (Camera.main == null)
+        {
+            Debug.LogWarning("[Warning]: no main camera found.");
+        }
+    }
+
+    private void Move(Vector3 movement, bool jump)
+    {
+        //Si el movimiento es mayor que 1 (por ejemplo, diagonales) lo normalizamos.
+        if (movement.magnitude > 1f) movement.Normalize();
+
+        CheckGround();
+        CalculateGroundAngle();
+
+        if (m_IsGrounded && jump)
+        {
+            HandleJump();
+        }
+        if (m_IsGrounded)
+        {
+            HandleGroundMovement(movement);
+        }
+        else
+        {
+            HandleAirMovement(movement);
+        }
+    }
+
+    private void HandleGroundMovement(Vector3 movement)
+    {
+        // Aplicar la velocidad en el suelo
+        m_RigidBody.MovePosition(transform.position + movement * Time.deltaTime * movementSpeed);
+    }
+
+    private void HandleAirMovement(Vector3 movement)
+    {
+        // Aplicar la velocidad aerea
+        m_RigidBody.MovePosition(transform.position + movement * Time.deltaTime * movementSpeed);
+    }
+
+    private void HandleJump()
+    {
+        // Para saltar simplemente modificar la velocidad del rigidbody
+
+        m_RigidBody.velocity = new Vector3(
+            m_RigidBody.velocity.x,
+            m_RigidBody.velocity.y,
+            -m_JumpPower);
+
+        m_IsGrounded = false;
+    }
+
+    private void CheckGround()
+    {
+        
+        RaycastHit hitInfo;
+        bool collision = Physics.Raycast(
+            transform.position + Vector3.up,
+            Vector3.down,
+            out hitInfo,
+            m_GroundDistance
+        );
+
+        if (collision)
+        {
+            m_IsGrounded = true;
+            m_GroundNormalVector = hitInfo.normal;
+        }
+        else
+        {
+            m_IsGrounded = false;
+            m_GroundNormalVector = Vector3.up;
+        }
+    }
+
+    private void CalculateGroundAngle()
+    {
+        if (!m_IsGrounded)
+        {
+            m_GroundAngle = 90f;
             return;
         }
-        // Change the local rotation of the camera
-        c.transform.localRotation = camRotation;
+        else
+        {
+            m_GroundAngle = Vector3.Angle(m_GroundNormalVector, transform.forward);
+        }
     }
 
-    void Update()
+    private void ApplyGravity()
     {
-        Vector3 velocity = getMovementInput();
-        doMove(velocity);
+        if (!m_IsGrounded)
+        {
+            transform.position += Physics.gravity * Time.deltaTime;
+        }
+    }
 
-        Vector3 cameraMovement = getCameraControl();
-        doRotate(cameraMovement.x);
-        doRotateCamera(cameraMovement.y);
+
+    private void Update()
+    {
+        //Obtener inputs
+        float xMovement = Input.GetAxis("Horizontal");
+        float yMovement = Input.GetAxis("Vertical");
+
+        //Calcular direccion movimiento respecto a la camara
+        m_CamForward = Vector3.Scale(m_MainCamera.forward, new Vector3(1, 1, 0)).normalized;
+        m_Move = yMovement * m_CamForward + xMovement * m_MainCamera.right;
+
+        bool jump = Input.GetKeyDown(KeyCode.Space);
+
+        //Aplicamos el movimiento
+        ApplyGravity();
+        Move(m_Move, jump);
     }
 }

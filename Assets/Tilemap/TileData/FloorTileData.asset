@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7f474cc630a49a4cacd8b1c115cd581, type: 3}
+  m_Name: FloorTileData
+  m_EditorClassIdentifier: 
+  tiles:
+  - {fileID: 11400000, guid: b8dafaf4acb7d1b45a3acb6a70df3f47, type: 2}
+  - {fileID: 11400000, guid: bb45b820f9f54ef4caf0e826d3cb5121, type: 2}
+  renderObject: {fileID: 7581916858621027821, guid: 2216b67ecb200d942bee970bbc41a19c,
+    type: 3}
