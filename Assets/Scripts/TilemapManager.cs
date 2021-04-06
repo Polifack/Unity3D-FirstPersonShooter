@@ -15,7 +15,6 @@ public class TilemapManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("[*] Tilemap manager encendido y listo para la accion");
         // Get component and initialize dict
         tilemap = GetComponent<Tilemap>();
         tileDictionary = new Dictionary<TileBase, TileData>();

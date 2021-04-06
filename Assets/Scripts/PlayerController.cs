@@ -7,6 +7,10 @@ public class PlayerController : MonoBehaviour
     public float m_JumpPower = 1f;
     private Vector3 m_GroundNormalVector;
 
+    // This should be moved outta here asap
+    // Below vector should not be static, must be below the character
+    public LayerMask whatIsGround;
+    private Vector3 below = new Vector3(0, 0, 1);
 
     private Rigidbody m_RigidBody;
     private Transform m_MainCamera;
@@ -14,6 +18,8 @@ public class PlayerController : MonoBehaviour
     private float m_GroundAngle;
     private Vector3 m_CamForward;             //Direccion de movimiento
     private Vector3 m_Move;
+
+   
 
 
     private void Start()
@@ -82,13 +88,15 @@ public class PlayerController : MonoBehaviour
         
         RaycastHit hitInfo;
         bool collision = Physics.Raycast(
-            transform.position + Vector3.up,
-            Vector3.down,
+            transform.position,
+            below,
             out hitInfo,
             m_GroundDistance
         );
-
-        if (collision)
+        
+        // Check if collision and if the collider is inside the layer mask "what is ground"
+        // Remark: layermasks and masks work as bitmasks
+        if (collision && ((whatIsGround & 1 << hitInfo.collider.gameObject.layer) == 1 << hitInfo.collider.gameObject.layer))
         {
             m_IsGrounded = true;
             m_GroundNormalVector = hitInfo.normal;
@@ -113,15 +121,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ApplyGravity()
-    {
-        if (!m_IsGrounded)
-        {
-            transform.position += Physics.gravity * Time.deltaTime;
-        }
-    }
-
-
     private void Update()
     {
         //Obtener inputs
@@ -135,7 +134,6 @@ public class PlayerController : MonoBehaviour
         bool jump = Input.GetKeyDown(KeyCode.Space);
 
         //Aplicamos el movimiento
-        ApplyGravity();
         Move(m_Move, jump);
     }
 }
