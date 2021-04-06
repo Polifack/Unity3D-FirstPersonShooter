@@ -52,13 +52,12 @@ public class TilemapManager : MonoBehaviour
                         GameObject go = td.renderObject;
 
                         // Move the tile position to the center
-                        Vector3 cSize = tilemap.cellSize;
-                        cSize += new Vector3(0, 0, -cSize.x);
-                        cSize /= 2;
+                        Vector3 cSize = tilemap.cellSize/2;
                         Vector3 tPosition = tilePosition+cSize;
 
-                        // Instantiate the gameobject in the data
-                        Instantiate(go, tPosition, Quaternion.identity);
+                        // Instantiate the gameobject in the data and set it as a child
+                        GameObject wall = Instantiate(go, tPosition, Quaternion.identity);
+                        wall.transform.SetParent(this.transform);
                     }
                 }
             }
