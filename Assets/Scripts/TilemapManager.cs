@@ -15,6 +15,7 @@ public class TilemapManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Hello moto");
         // Get component and initialize dict
         tilemap = GetComponent<Tilemap>();
         tileDictionary = new Dictionary<TileBase, TileData>();
@@ -23,7 +24,6 @@ public class TilemapManager : MonoBehaviour
         foreach (TileData td in tileDatas){
             foreach (TileBase tb in td.tiles)
             {
-                Debug.Log("[*] Adding to dict " + tb);
                 tileDictionary.Add(tb, td);
             }
         }
@@ -53,7 +53,7 @@ public class TilemapManager : MonoBehaviour
 
                         // Move the tile position to the center
                         Vector3 cSize = tilemap.cellSize/2;
-                        Vector3 tPosition = tilePosition+cSize;
+                        Vector3 tPosition = transform.position+tilePosition+cSize;
 
                         // Instantiate the gameobject in the data and set it as a child
                         GameObject wall = Instantiate(go, tPosition, Quaternion.identity);

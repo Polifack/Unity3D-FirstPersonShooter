@@ -15,5 +15,5 @@ MonoBehaviour:
   tiles:
   - {fileID: 11400000, guid: 66b4951e2203e8a44b4af557aee622ee, type: 2}
   - {fileID: 11400000, guid: b4cc4e358e1b81c47b3bde56691b5200, type: 2}
-  renderObject: {fileID: 1387337328551596432, guid: 33c3e07f94a75d848881ace32dfb2932,
+  renderObject: {fileID: 9141441527509871827, guid: 33c3e07f94a75d848881ace32dfb2932,
     type: 3}
