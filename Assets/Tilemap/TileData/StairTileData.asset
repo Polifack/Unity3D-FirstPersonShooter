@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7f474cc630a49a4cacd8b1c115cd581, type: 3}
-  m_Name: WallTileData
+  m_Name: StairTileData
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: 66b4951e2203e8a44b4af557aee622ee, type: 2}
-  renderObject: {fileID: 9141441527509871827, guid: 33c3e07f94a75d848881ace32dfb2932,
+  - {fileID: 11400000, guid: b4cc4e358e1b81c47b3bde56691b5200, type: 2}
+  renderObject: {fileID: 1138140173110448284, guid: 5d93a7ec84910ba44844223300f7fc04,
     type: 3}
-  isLadder: 0
+  isLadder: 1
   isWalkable: 0
   gCost: 50
   hCost: 50
