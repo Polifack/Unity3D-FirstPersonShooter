@@ -17,3 +17,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b4cc4e358e1b81c47b3bde56691b5200, type: 2}
   renderObject: {fileID: 9141441527509871827, guid: 33c3e07f94a75d848881ace32dfb2932,
     type: 3}
+  isLadder: 0
+  isWalkable: 0
+  gCost: 50
+  hCost: 50
