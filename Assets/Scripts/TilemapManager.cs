@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class TilemapManager : MonoBehaviour
 {
+    public Room belongingRoom;
     public bool showGrid = true;
 
     private Tilemap tilemap;
@@ -15,34 +16,12 @@ public class TilemapManager : MonoBehaviour
     private Vector2Int gridSize;               // Vector that indicates the "shape" of the grid
     private Vector2 gridWorldSize;          // Vector that stores height and weight of the grid
 
-    [SerializeField]
     private List<TileData> tileDatas;
-
-    private int penaltyMin = int.MaxValue;
-    private int penaltyMax = int.MinValue;
-
-    private void OnDrawGizmos()
-    {
-        // Draw node grids
-        if (nodeGrid != null)
-        {
-            foreach (Node node in nodeGrid)
-            {
-                if (showGrid)
-                {
-                    //Obtenemos el color del nodo relativo a su peso 
-                    Color weight = Color.Lerp(Color.white, Color.black, Mathf.InverseLerp(penaltyMin, penaltyMax,
-                        node.movementPenalty));
-
-                    Gizmos.color = (node.walkable ? weight : Color.red);
-                    Gizmos.DrawWireCube(node.worldPosition, Vector3.one * (tilemap.cellSize.x));
-                }
-            }
-        }
-    }
-
     private void Awake()
     {
+        // Get tiledata from room
+        tileDatas = belongingRoom.tileDatas;
+
         // Get component and initialize dict
         tilemap = GetComponent<Tilemap>();
         tileDictionary = new Dictionary<TileBase, TileData>();
@@ -54,10 +33,7 @@ public class TilemapManager : MonoBehaviour
                 tileDictionary.Add(tb, td);
             }
         }
-    }
 
-    private void Start()
-    {
         // Compress the bounds of the tilemap to fit only the drawn area
         tilemap.CompressBounds();
 
@@ -65,10 +41,11 @@ public class TilemapManager : MonoBehaviour
         BoundsInt bounds = tilemap.cellBounds;
 
         gridSize = new Vector2Int(bounds.xMax - bounds.xMin, bounds.yMax - bounds.yMin);
-
         gridWorldSize = new Vector2(gridSize.x * tilemap.cellSize.x, gridSize.y * tilemap.cellSize.y);
-
         gridStartPosition = new Vector2Int(bounds.xMin, bounds.yMin);
+
+        // Set the grid size in the room
+        belongingRoom.setGridData(gridWorldSize);
 
         // Init the node grid
         // Note: If we are drawing the tilemap behind (0,0) this will crash.
@@ -193,15 +170,6 @@ public class TilemapManager : MonoBehaviour
 
                 //Asignamos el valor de desenfoque
                 nodeGrid[x, y].movementPenalty = blurredPenalty;
-
-                if (blurredPenalty > penaltyMax)
-                {
-                    penaltyMax = blurredPenalty;
-                }
-                if (blurredPenalty < penaltyMin)
-                {
-                    penaltyMin = blurredPenalty;
-                }
             }
         }
     }
