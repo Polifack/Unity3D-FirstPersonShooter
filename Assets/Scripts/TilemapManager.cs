@@ -142,7 +142,11 @@ public class TilemapManager : MonoBehaviour
             for (int x = -kernelExtents; x <= kernelExtents; x++)
             {
                 int sampleX = Mathf.Clamp(x, 0, kernelExtents);
-                penaltiesHorizontalPass[0, y] += nodeGrid[sampleX, y].movementPenalty;
+                if (nodeGrid[sampleX, y] != null)
+                {
+                    penaltiesHorizontalPass[0, y] += nodeGrid[sampleX, y].movementPenalty;
+                }
+                
             }
 
             //Calcualmos el resto de valores simplemente desplazando el kernel horizontalmente

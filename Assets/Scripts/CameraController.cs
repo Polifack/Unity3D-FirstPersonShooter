@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class CameraController : MonoBehaviour
     public Transform target;
     public Vector2 yRotationLimits = new Vector2(-70, 70);
     public float rotationSmoothTime = .12f;
+    public Animator animator;
     
     // Use two rotation points to rotate in x axis and y axis separately
     public Transform xAxisRotation;
@@ -16,7 +18,6 @@ public class CameraController : MonoBehaviour
     // Store rotation
     private float currentRotationY;
     private float currentRotationX;
-
 
     private void Awake()
     {
@@ -54,6 +55,11 @@ public class CameraController : MonoBehaviour
 
         // Follow target
         transform.position = target.position;
+    }
+
+    public void doWobble(bool value)
+    {
+        animator.SetBool("isWalking", value);
     }
 
 }

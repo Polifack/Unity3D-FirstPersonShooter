@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour
         CheckGround();
         CalculateGroundAngle();
 
+
         if (m_IsGrounded && jump)
         {
             HandleJump();
@@ -61,12 +63,27 @@ public class PlayerController : MonoBehaviour
 
     private void HandleGroundMovement(Vector3 movement)
     {
+        // Check movement for wobbling
+        if (movement.x != 0 || movement.y != 0)
+        {
+            // change this to the gamemanager or something please this is terrible 
+            Camera.main.gameObject.GetComponentInParent<CameraController>().doWobble(true);
+        }
+        else
+        {
+            Camera.main.gameObject.GetComponentInParent<CameraController>().doWobble(false);
+        }
+
         // Aplicar la velocidad en el suelo
         m_RigidBody.MovePosition(transform.position + movement * Time.deltaTime * movementSpeed);
+
     }
 
     private void HandleAirMovement(Vector3 movement)
     {
+        // Disable wobbling on air
+        Camera.main.gameObject.GetComponentInParent<CameraController>().doWobble(false);
+        
         // Aplicar la velocidad aerea
         m_RigidBody.MovePosition(transform.position + movement * Time.deltaTime * movementSpeed);
     }
