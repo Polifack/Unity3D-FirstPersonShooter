@@ -19,6 +19,9 @@ public class CameraController : MonoBehaviour
     private float currentRotationY;
     private float currentRotationX;
 
+    // Wobble bool
+    private bool isWobbling;
+
     private void Awake()
     {
         // Initialize counters
@@ -54,12 +57,22 @@ public class CameraController : MonoBehaviour
         yAxisRotation.localRotation = Quaternion.Euler(0, currentRotationY, 0);
 
         // Follow target
-        transform.position = target.position;
+        if (isWobbling)
+        {
+            Vector3 nextPosition = target.position;
+            nextPosition.z = transform.position.z;
+            transform.position = nextPosition;
+        }
+        else
+        {
+            transform.position = target.position;
+        }
     }
 
     public void doWobble(bool value)
     {
-        animator.SetBool("isWalking", value);
+        isWobbling = value;
+        animator.SetBool("isWalking", isWobbling);
     }
 
 }
