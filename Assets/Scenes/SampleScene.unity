@@ -259,8 +259,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomList:
-  - {fileID: 6878431508752271474, guid: a46f7e3febdac6843b2ae9c49347968b, type: 3}
-  - {fileID: 6878431508752271474, guid: 6af98051a7604d349b8d566b46b983f2, type: 3}
+  - {fileID: 11400000, guid: 479c47f542d638944b4b3c2e7101a214, type: 2}
+  - {fileID: 11400000, guid: 70cf704e3e5ed5a49a35d063e60da9de, type: 2}
 --- !u!1 &740512872
 GameObject:
   m_ObjectHideFlags: 0

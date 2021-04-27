@@ -58,10 +58,7 @@ public class Room : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(roomWorldSize);
-        // Set target in the enemies
-        Debug.Log(transform.position);
-        
+
         foreach (GameObject enemy in Enemies)
         {
             EnemyController ec = enemy.GetComponent<EnemyController>();

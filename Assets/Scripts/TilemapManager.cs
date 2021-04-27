@@ -97,7 +97,7 @@ public class TilemapManager : MonoBehaviour
             }
         }
 
-        BlurWeights(3);
+        //BlurWeights(3);
     }
 
 

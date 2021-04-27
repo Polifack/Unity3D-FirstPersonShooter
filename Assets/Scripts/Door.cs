@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    public GameObject doorModel;
+
     private void Awake()
     {
         // Doors will always be opened at the start
@@ -12,15 +14,16 @@ public class Door : MonoBehaviour
 
     public void Open()
     {
-        Vector3 p = transform.position;
+        Vector3 p = doorModel.transform.position;
         p.z -= 2;
-        transform.position = p;
+        doorModel.transform.position = p;
     }
 
     public void Close()
     {
-        Vector3 p = transform.position;
+        Vector3 p = doorModel.transform.position;
         p.z += 2;
-        transform.position = p;
+        doorModel.transform.position = p;
     }
+
 }

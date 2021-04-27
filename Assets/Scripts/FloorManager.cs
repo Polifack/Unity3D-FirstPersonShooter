@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FloorManager : MonoBehaviour
 {
-    public GameObject[] roomList;
+    public RoomData[] roomList;
 
     private Dictionary<Vector3, Room> roomDictionary;
     private Vector2 delta = new Vector2(1, 1);          //Vector that indicates the "difference" between the player enter room
@@ -13,8 +13,8 @@ public class FloorManager : MonoBehaviour
         roomDictionary = new Dictionary<Vector3, Room>();
         Vector3 startPoint = Vector3.zero;
 
-        foreach (GameObject room in roomList){
-            GameObject roomGO = Instantiate(room, startPoint, Quaternion.identity);
+        foreach (RoomData room in roomList){
+            GameObject roomGO = Instantiate(room.roomObject, startPoint, Quaternion.identity);
             Room r = roomGO.GetComponent<Room>();
             Vector2 roomSize = r.roomWorldSize;
 
