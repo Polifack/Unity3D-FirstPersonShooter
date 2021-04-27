@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7412989507591002127}
   - component: {fileID: 7500915741476688757}
   - component: {fileID: 6337442530704349504}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: DoorCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

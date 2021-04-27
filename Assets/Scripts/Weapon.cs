@@ -37,12 +37,13 @@ public class Weapon : MonoBehaviour
             Ray shootingRay = getShootingRay();
             RaycastHit hitInfo;
             if (Physics.Raycast(shootingRay, out hitInfo)){
-                Debug.Log("Pium");
-
                 LayerMask target = getLayerMask();
                 if ((target & 1 << hitInfo.collider.gameObject.layer) == 1 << hitInfo.collider.gameObject.layer)
                 {
+                    EnemyController ec = hitInfo.collider.gameObject.GetComponentInParent<EnemyController>();
                     GameObject b = Instantiate(bullet, hitInfo.point, shooter.transform.rotation);
+
+                    ec.takeDamage(5);
                 }
             }
             currentCD = 0;

@@ -4,10 +4,23 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    private void Awake()
+    {
+        // Doors will always be opened at the start
+        Open();
+    }
+
     public void Open()
     {
-        // This could be done like a corroutine
-        // where this rotates 
-        Destroy(this);
+        Vector3 p = transform.position;
+        p.z -= 2;
+        transform.position = p;
+    }
+
+    public void Close()
+    {
+        Vector3 p = transform.position;
+        p.z += 2;
+        transform.position = p;
     }
 }

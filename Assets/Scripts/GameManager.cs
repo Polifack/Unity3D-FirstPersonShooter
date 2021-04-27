@@ -9,21 +9,26 @@ public class GameManager : MonoBehaviour
     public LayerMask whatIsPlayer;
     public LayerMask whatIsGround;
     public LayerMask whatIsEnemy;
+    public LayerMask whatIsLadder;
+    public LayerMask whatIsDoor;
+
+    private GameObject player;
 
 
     private void Awake()
     {
         instance = this;
+
+        // Initialize gamemanager data
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    void Start()
+    public GameObject getPlayer()
     {
-        
+        return player;
     }
-
-    // Update is called once per frame
-    void Update()
+    public Vector3 getPlayerPosition()
     {
-        
+        return player.transform.position;
     }
 }
