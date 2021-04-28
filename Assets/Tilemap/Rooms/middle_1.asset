@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea0616f2fea48db43ae9891371ff501c, type: 3}
   m_Name: middle_1
   m_EditorClassIdentifier: 
-  roomObject: {fileID: 6878431508752271474, guid: a46f7e3febdac6843b2ae9c49347968b,
+  roomObject: {fileID: 6878431508752271474, guid: d4df772b1e2e7e446a5bd025f96790fd,
     type: 3}
   type: 1
   hasLeft: 1

@@ -184,4 +184,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorModel: {fileID: 1085394097422972442}
-  raycastPoint: {fileID: 3154859756559907503}
