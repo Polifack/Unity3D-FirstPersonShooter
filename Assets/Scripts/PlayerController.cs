@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 5f;
     public float m_GroundDistance = 2f;
     public float m_JumpPower = 1f;
+    public float groundCheckDistance = 1f;
     private Vector3 m_GroundNormalVector;
 
     // This should be moved outta here asap
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour
 
         if (m_IsGrounded && jump)
         {
+            Debug.Log(m_IsGrounded);
             HandleJump();
         }
         if (m_IsGrounded)
@@ -105,7 +107,7 @@ public class PlayerController : MonoBehaviour
         
         RaycastHit hitInfo;
         bool collision = Physics.Raycast(
-            transform.position,
+            transform.position+new Vector3(0,0,-groundCheckDistance),
             below,
             out hitInfo,
             m_GroundDistance

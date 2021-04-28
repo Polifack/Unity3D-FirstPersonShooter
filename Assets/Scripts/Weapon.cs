@@ -7,6 +7,8 @@ public class Weapon : MonoBehaviour
     public GameObject bullet;
     public GameObject shooter;
 
+    public Animator anim;
+
     // data
     public float MaxCD = 10;
     public float currentCD = 0;
@@ -34,6 +36,7 @@ public class Weapon : MonoBehaviour
 
        if (isShooting())
        {
+            anim.SetTrigger("shoot");
             Ray shootingRay = getShootingRay();
             RaycastHit hitInfo;
             if (Physics.Raycast(shootingRay, out hitInfo)){
