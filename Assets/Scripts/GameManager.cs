@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
         instance = this;
 
         // Initialize gamemanager data
+        
         player = GameObject.FindGameObjectWithTag("Player");
     }
 

@@ -7,6 +7,7 @@ public class Room : MonoBehaviour
 {
     public List<GameObject> Enemies;
     public List<GameObject> Doors;
+    public Transform playerSpawnPoint;
 
     public List<TileData> tileDatas;
     public Vector2 roomWorldSize;
@@ -54,6 +55,13 @@ public class Room : MonoBehaviour
     {
         Debug.Log("Adding doors");
         Doors.Add(door);
+    }
+
+    public Transform getSpawnPoint()
+    {
+        // Returns the player default spawn point
+        // useful for future developments and init rooms
+        return playerSpawnPoint;
     }
 
     private void Start()

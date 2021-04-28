@@ -258,9 +258,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb397f492edd1d042959f417a9f66b19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomList:
+  midRoomList:
   - {fileID: 11400000, guid: 479c47f542d638944b4b3c2e7101a214, type: 2}
   - {fileID: 11400000, guid: 70cf704e3e5ed5a49a35d063e60da9de, type: 2}
+  - {fileID: 11400000, guid: 67b5feedccee34e40be81a55367f0c85, type: 2}
+  initRoomList:
+  - {fileID: 11400000, guid: 96deb121b8adef04cb767de3ff2a6134, type: 2}
+  bossRoomList:
+  - {fileID: 11400000, guid: 588573957a36bab40956daa924bcd807, type: 2}
 --- !u!1 &740512872
 GameObject:
   m_ObjectHideFlags: 0

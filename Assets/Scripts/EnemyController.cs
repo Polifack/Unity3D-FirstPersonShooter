@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public GameObject target;
+    public GameObject sprite;
     public int maxHP = 10;
 
     private int currentHP;
@@ -41,7 +42,7 @@ public class EnemyController : MonoBehaviour
         float angle = (Mathf.Atan2(tY - sY, tX - sX) * 180 / Mathf.PI);
 
         Vector3 eulers = new Vector3(0, -angle, 0);
-        transform.localEulerAngles = eulers;
+        sprite.transform.localEulerAngles = eulers;
     }
 
     void Update()
