@@ -80,9 +80,8 @@ public class TilemapManager : MonoBehaviour
 
                         // Render the gameobject
                         GameObject generated = Instantiate(go, renderPosition, go.transform.rotation);
-                        
-                        // If we are generating a door add it to the door list of the room
-                        if ((GameManager.instance.whatIsDoor & 1 << generated.layer) == 1 << generated.layer)
+
+                        if ((GameManager.instance != null) &&((GameManager.instance.whatIsDoor & 1 << generated.layer) == 1 << generated.layer))
                         {
                             belongingRoom.addDoor(generated);
                         }

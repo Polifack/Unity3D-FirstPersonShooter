@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
         // Initialize gamemanager data
         
         player = GameObject.FindGameObjectWithTag("Player");
