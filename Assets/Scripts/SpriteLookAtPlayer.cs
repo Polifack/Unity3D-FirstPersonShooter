@@ -6,14 +6,14 @@ public class SpriteLookAtPlayer : MonoBehaviour
 {
     // Class that makes a sprite look always at player
     private GameObject target;
-    public SpriteRenderer sr;
+    public GameObject sr;
     
     private const float distance = 5; // Distance that the render will happen
     
     private void Start()
     {
         target = GameManager.instance.getPlayer();
-        sr = GetComponentInChildren<SpriteRenderer>();
+        sr = GetComponentInChildren<GameObject>();
     }
     private void doRotate()
     {

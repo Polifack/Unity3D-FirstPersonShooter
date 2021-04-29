@@ -18,7 +18,6 @@ public class Unit : MonoBehaviour
             Debug.Log("Requesting new path");
             PathRequestManager.instance.RequestPath(transform.position, target.position, OnPathFound);
         }
-            
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccess)
