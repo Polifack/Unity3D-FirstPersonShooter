@@ -11,16 +11,16 @@ public class GameManager : MonoBehaviour
     public LayerMask whatIsEnemy;
     public LayerMask whatIsLadder;
     public LayerMask whatIsDoor;
+    public LayerMask whatIsInteractable;
 
     private GameObject player;
 
 
     private void Awake()
     {
-        instance = this;
-        // Initialize gamemanager data
-        
         player = GameObject.FindGameObjectWithTag("Player");
+        instance = this;
+        // Initialize gamemanager data       
     }
 
     public GameObject getPlayer()
