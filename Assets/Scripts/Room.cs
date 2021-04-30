@@ -33,7 +33,6 @@ public class Room : MonoBehaviour
     }
     public void doOpenDoors()
     {
-        Debug.Log("Opening doors");
         foreach (GameObject door in Doors)
         {
             Door d = door.GetComponent<Door>();
@@ -91,7 +90,6 @@ public class Room : MonoBehaviour
     {
         // Returns the player default spawn point
         // useful for future developments and init rooms
-        Debug.Log("Spawning player");
         return playerSpawnPoint;
     }
 

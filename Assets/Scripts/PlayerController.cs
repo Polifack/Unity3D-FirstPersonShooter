@@ -21,7 +21,9 @@ public class PlayerController : MonoBehaviour
     private Vector3 m_CamForward;             //Direccion de movimiento
     private Vector3 m_Move;
 
-   
+    // Data, this could be abstracted to other file
+    public int maxHP = 100;
+    private int currentHP;
 
 
     private void Start()
@@ -37,6 +39,14 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogWarning("[Warning]: no main camera found.");
         }
+
+        currentHP = maxHP;
+    }
+
+    public void takeDamage(int ammount)
+    {
+        currentHP -= ammount;
+        Debug.Log(currentHP);
     }
 
     private void Move(Vector3 movement, bool jump)
@@ -50,7 +60,6 @@ public class PlayerController : MonoBehaviour
 
         if (m_IsGrounded && jump)
         {
-            Debug.Log(m_IsGrounded);
             HandleJump();
         }
         if (m_IsGrounded)

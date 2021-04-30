@@ -8,12 +8,11 @@ public class SpriteLookAtPlayer : MonoBehaviour
     private GameObject target;
     public GameObject sr;
     
-    private const float distance = 5; // Distance that the render will happen
+    private const float distance = 10; // Distance that the render will happen
     
     private void Start()
     {
         target = GameManager.instance.getPlayer();
-        sr = GetComponentInChildren<GameObject>();
     }
     private void doRotate()
     {
@@ -29,6 +28,11 @@ public class SpriteLookAtPlayer : MonoBehaviour
 
     private void Update()
     {
+        if (target == null || sr == null)
+        {
+            return;
+        }
+
         if (Vector3.Distance(transform.position, target.transform.position) < distance)
         {
             doRotate();
