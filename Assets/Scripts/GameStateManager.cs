@@ -73,6 +73,12 @@ public class PlayState : GameState
 
             currentTime -= Time.deltaTime;
             UIManager.instance.setTime(currentTime);
+
+            if (currentTime <= 0)
+            {
+                // Timed out
+                // Spawn strong enemies in start point
+            }
         }
     }
 }
