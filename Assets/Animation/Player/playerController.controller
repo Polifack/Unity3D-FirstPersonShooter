@@ -8,7 +8,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: hg_shoot
-  m_Speed: 2
+  m_Speed: 1.8
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 8016026466255437322}
@@ -97,7 +97,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.33789128
   m_TransitionOffset: 0
   m_ExitTime: 0
   m_HasExitTime: 0
@@ -119,9 +119,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.08237225
-  m_TransitionOffset: 0
-  m_ExitTime: 0.41241074
+  m_TransitionDuration: 0.09870191
+  m_TransitionOffset: 1.1787461
+  m_ExitTime: 0.59366333
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0

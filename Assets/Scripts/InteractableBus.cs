@@ -7,6 +7,6 @@ public class InteractableBus : InteractuableObject
 {
     public override void onInteract()
     {
-        SceneManager.LoadScene(1);
+        GameStateManager.instance.toState(new PlayState());
     }
 }
