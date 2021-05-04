@@ -131,6 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 577689151}
   - component: {fileID: 577689150}
+  - component: {fileID: 577689152}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -164,6 +165,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &577689152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577689149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4155b675c3cf746b3c459c43ff76e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 256
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 512
+  whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 1024
+  whatIsLadder:
+    serializedVersion: 2
+    m_Bits: 4096
+  whatIsDoor:
+    serializedVersion: 2
+    m_Bits: 2048
+  whatIsInteractable:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!1 &1353902789
 GameObject:
   m_ObjectHideFlags: 0

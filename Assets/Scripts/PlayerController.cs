@@ -49,6 +49,11 @@ public class PlayerController : MonoBehaviour
         Debug.Log(currentHP);
     }
 
+    public void heal(int ammount)
+    {
+        currentHP += ammount;
+    }
+
     private void Move(Vector3 movement, bool jump)
     {
         //Si el movimiento es mayor que 1 (por ejemplo, diagonales) lo normalizamos.

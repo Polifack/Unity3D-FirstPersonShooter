@@ -18,13 +18,12 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
         instance = this;
-        // Initialize gamemanager data       
     }
 
     public GameObject getPlayer()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         return player;
     }
     public Vector3 getPlayerPosition()
