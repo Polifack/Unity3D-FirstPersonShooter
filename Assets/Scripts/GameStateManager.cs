@@ -104,7 +104,7 @@ public class GameStateManager : MonoBehaviour
     {
         if (state == null)
         {
-            state = new LobbyState();   
+            state = new PlayState();   
         }
         state.onEnter();
     }

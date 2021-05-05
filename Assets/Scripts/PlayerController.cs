@@ -46,7 +46,6 @@ public class PlayerController : MonoBehaviour
     public void takeDamage(int ammount)
     {
         currentHP -= ammount;
-        Debug.Log(currentHP);
     }
 
     public void heal(int ammount)

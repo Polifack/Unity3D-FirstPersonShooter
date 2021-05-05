@@ -5,8 +5,26 @@ using UnityEngine;
 
 public class Pathfinding : MonoBehaviour
 {
-    private PathRequestManager requestManager;
+    // Clase que permite realizar pathfinding usando el algoritmo A*
+    private PathRequestManager requestManager;                 
     private TilemapManager grid;
+
+    Node startNode = null;
+    Node endNode = null;
+
+    private void OnDrawGizmos()
+    {
+        if (startNode != null)
+        {
+            Gizmos.color = Color.green;
+            //Gizmos.DrawCube(startNode.worldPosition, Vector3.one * (grid.nodeSize));
+        }
+        if (endNode != null)
+        {
+            Gizmos.color = Color.blue;
+            //Gizmos.DrawCube(endNode.worldPosition, Vector3.one * (grid.nodeSize));
+        }
+    }
 
     private void Awake()
     {
@@ -16,39 +34,35 @@ public class Pathfinding : MonoBehaviour
 
     public void StartFindPath(Vector3 startPos, Vector3 targetPos)
     {
+        // Ignore z value
+        startPos.z = 0;
+        targetPos.z = 0;
+
         //Función que nos permite ejecutar una busqueda de caminos en paralelo mediante corrutinas.
         StartCoroutine(FindPath(startPos, targetPos));
     }
     private IEnumerator FindPath(Vector3 startPos, Vector3 endPos)
     {
-        Node startNode = grid.NodeFromWorldPoint(startPos);
-        Node targetNode = grid.NodeFromWorldPoint(endPos);
+        startNode = grid.NodeFromWorldPoint(startPos);
+        endNode = grid.NodeFromWorldPoint(endPos);
 
         Vector3[] waypoints = new Vector3[0];
         bool pathSuccess = false;
 
-        if (!startNode.walkable || !targetNode.walkable)
-        {
-            Debug.LogWarning("WARNING: Target or Start node are not walkable");
-            yield return null;
-        }
-
         //Implementación del algoritmo A*. 
         Heap<Node> openSet = new Heap<Node>(grid.getNumberOfTiles());
         HashSet<Node> closedSet = new HashSet<Node>();
-
         openSet.Add(startNode);
 
         while (openSet.Count > 0)
         {
             Node currentNode = openSet.RemoveFirst();
-
             closedSet.Add(currentNode);
 
             //Si el nodo en el que estamos es la meta, terminamos la exploración
-            if (currentNode == targetNode)
+            if (currentNode == endNode)
             {
-                RetracePath(startNode, targetNode);
+                RetracePath(startNode, endNode);
                 pathSuccess = true;
 
                 break;
@@ -70,7 +84,7 @@ public class Pathfinding : MonoBehaviour
                 if (newPathToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
                 {
                     neighbour.gCost = newPathToNeighbour;
-                    neighbour.hCost = GetDistance(neighbour, targetNode);
+                    neighbour.hCost = GetDistance(neighbour, endNode);
                     neighbour.parent = currentNode;
 
                     if (!openSet.Contains(neighbour))
@@ -84,17 +98,12 @@ public class Pathfinding : MonoBehaviour
 
         if (pathSuccess)
         {
-            waypoints = RetracePath(startNode, targetNode);
-            
-            foreach (Vector3 position in waypoints)
-            {
-                Debug.Log(position);
-            }
+            waypoints = RetracePath(startNode, endNode);
             requestManager.FinishedProcessingPath(waypoints, pathSuccess);
         }
         else
         {
-            Debug.LogWarning("WARNING: No path has been found");
+            requestManager.FinishedProcessingPath(null, pathSuccess);
         }
     }
     private int GetDistance(Node nodeA, Node nodeB)
@@ -118,6 +127,8 @@ public class Pathfinding : MonoBehaviour
             path.Add(currentNode);
             currentNode = currentNode.parent;
         }
+
+        
 
         Vector3[] waypoints = SimplifyPath(path);
         Array.Reverse(waypoints);

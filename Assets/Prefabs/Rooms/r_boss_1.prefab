@@ -2424,6 +2424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   belongingRoom: {fileID: 4243362445173053779}
   showGrid: 1
+  nodeSize: 0
 --- !u!19719996 &5797494473092932948
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -2465,6 +2466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathfinding: {fileID: 4191140677484262018}
+  isProcessingPath: 0
 --- !u!1 &661970230295187821
 GameObject:
   m_ObjectHideFlags: 0
@@ -4931,6 +4933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   belongingRoom: {fileID: 4243362445173053779}
   showGrid: 1
+  nodeSize: 0
 --- !u!19719996 &9028971071498496449
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -4972,6 +4975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathfinding: {fileID: 2574739666794180123}
+  isProcessingPath: 0
 --- !u!1 &6432166753959551665
 GameObject:
   m_ObjectHideFlags: 0
@@ -5147,6 +5151,9 @@ MonoBehaviour:
   Doors: []
   playerSpawnPoint: {fileID: 2645477449370253923}
   entryPoint: {fileID: 1494273911823116919}
+  firstFloor: {fileID: 6878431509243299741}
+  secondFloor: {fileID: 538590098163435815}
+  thirdFloor: {fileID: 2851846380544843637}
   tileDatas:
   - {fileID: 11400000, guid: 4a17f82bf7a43c8419f3eed0ed78eef2, type: 2}
   - {fileID: 11400000, guid: 71dcf9134e49efc47a85ed1f26632689, type: 2}
@@ -9438,6 +9445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   belongingRoom: {fileID: 4243362445173053779}
   showGrid: 1
+  nodeSize: 0
 --- !u!19719996 &6878431509243299734
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -9479,6 +9487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathfinding: {fileID: 6878431509243299732}
+  isProcessingPath: 0
 --- !u!1 &6878431509640230826
 GameObject:
   m_ObjectHideFlags: 0
@@ -13615,6 +13624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   belongingRoom: {fileID: 4243362445173053779}
   showGrid: 1
+  nodeSize: 0
 --- !u!19719996 &6878431509640230830
 TilemapCollider2D:
   m_ObjectHideFlags: 0

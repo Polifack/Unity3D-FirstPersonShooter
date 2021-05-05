@@ -234,6 +234,9 @@ MonoBehaviour:
   Doors: []
   playerSpawnPoint: {fileID: 0}
   entryPoint: {fileID: 7204325111623652813}
+  firstFloor: {fileID: 6878431509243299741}
+  secondFloor: {fileID: 6878431509048872181}
+  thirdFloor: {fileID: 6878431509640230826}
   tileDatas:
   - {fileID: 11400000, guid: 4a17f82bf7a43c8419f3eed0ed78eef2, type: 2}
   - {fileID: 11400000, guid: 71dcf9134e49efc47a85ed1f26632689, type: 2}
@@ -1430,6 +1433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   belongingRoom: {fileID: 4243362445173053779}
   showGrid: 1
+  nodeSize: 0
 --- !u!19719996 &6878431509048872169
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -5224,6 +5228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   belongingRoom: {fileID: 4243362445173053779}
   showGrid: 1
+  nodeSize: 0
 --- !u!19719996 &6878431509243299734
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -5265,6 +5270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathfinding: {fileID: 6878431509243299732}
+  isProcessingPath: 0
 --- !u!1 &6878431509640230826
 GameObject:
   m_ObjectHideFlags: 0
@@ -9032,6 +9038,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   belongingRoom: {fileID: 4243362445173053779}
   showGrid: 1
+  nodeSize: 0
 --- !u!19719996 &6878431509640230830
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -9073,7 +9080,7 @@ PrefabInstance:
     - target: {fileID: 3890644030731247013, guid: 89f07a77464406346b6a1b5c19ed2fba,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3890644030731247013, guid: 89f07a77464406346b6a1b5c19ed2fba,
         type: 3}

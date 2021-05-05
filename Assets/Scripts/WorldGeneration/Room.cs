@@ -10,6 +10,10 @@ public class Room : MonoBehaviour
     public Transform playerSpawnPoint;
     public Transform entryPoint;
 
+    public GameObject firstFloor;
+    public GameObject secondFloor;
+    public GameObject thirdFloor;
+
     public List<TileData> tileDatas;
     public Vector2 roomWorldSize;
 
@@ -68,6 +72,11 @@ public class Room : MonoBehaviour
                 d.Close();
                 isPlaying = true;
             }
+            foreach (GameObject enemy in Enemies)
+            {
+                EnemyController e = enemy.GetComponentInChildren<EnemyController>();
+                e.activateEnemy();
+            }
         }
     }
 
@@ -83,6 +92,8 @@ public class Room : MonoBehaviour
             d.Close();
             isPlaying = true;
         }
+
+
     }
 
     public void addDoor(GameObject door)
@@ -99,11 +110,10 @@ public class Room : MonoBehaviour
 
     private void Start()
     {
-
         foreach (GameObject enemy in Enemies)
         {
-            EnemyController ec = enemy.GetComponent<EnemyController>();
-            ec.doInit(GameManager.instance.getPlayer(),this);
+            EnemyController ec = enemy.GetComponentInChildren<EnemyController>();
+            ec.doInit(GameManager.instance.getPlayer(),this, firstFloor.GetComponent<PathRequestManager>());
         }
     }
     private void Update()

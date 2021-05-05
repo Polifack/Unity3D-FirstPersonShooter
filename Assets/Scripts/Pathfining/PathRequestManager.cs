@@ -11,23 +11,14 @@ public class PathRequestManager : MonoBehaviour
 
     public Pathfinding pathfinding;
 
-    bool isProcessingPath;
-    public static PathRequestManager instance;
+    public bool isProcessingPath;
 
-    void Awake()
-    {
-        instance = this;
-    }
 
     public void RequestPath(Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> callback)
     {
-        Debug.Log("Requesting path from " + pathStart + " to " + pathEnd);
-        Debug.Log("OnPahtFound: " + callback);
-        
-        PathRequest newRequest = new PathRequest(pathStart, pathEnd, callback);
-        
+        PathRequest newRequest = new PathRequest(pathStart, pathEnd, callback);       
         pathRequestQueue.Enqueue(newRequest);
-        instance.TryProcessNext();
+        TryProcessNext();
     }
 
     void TryProcessNext()
@@ -37,19 +28,13 @@ public class PathRequestManager : MonoBehaviour
             currentPathRequest = pathRequestQueue.Dequeue();
             isProcessingPath = true;
 
-            Debug.Log("Starting process of path from " + currentPathRequest.pathStart + " to " + currentPathRequest.pathEnd);
-            Debug.Log("OnPathFound: " + currentPathRequest.callback);
             pathfinding.StartFindPath(currentPathRequest.pathStart, currentPathRequest.pathEnd);
         }
     }
 
     public void FinishedProcessingPath(Vector3[] path, bool success)
     {
-        Debug.Log("Finished process of path from " + currentPathRequest.pathStart + " to " + currentPathRequest.pathEnd);
-        Debug.Log("Result: " + success);
-        Debug.Log("OnPathFound: " + currentPathRequest.callback);
-
-        currentPathRequest.callback(path, success);
+        currentPathRequest.callback((success?path:null), success);
         isProcessingPath = false;
         TryProcessNext();
     }

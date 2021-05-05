@@ -6,50 +6,60 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    public Transform target;
-    private float speed = 10f;
+    public Vector3 target;
+    private float speed = 3;
     private Vector3[] path;
-    private int targetIndex;
-
-    private void Update()
+    private int pathIndex;
+    private PathRequestManager prm;
+    private bool doMove;
+    
+    
+    public void setRequestManager(PathRequestManager _prm)
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            Debug.Log("Requesting new path");
-            PathRequestManager.instance.RequestPath(transform.position, target.position, OnPathFound);
-        }
+        prm = _prm;
     }
-
     public void OnPathFound(Vector3[] newPath, bool pathSuccess)
     {
-        Debug.Log("Following path");
         if (pathSuccess)
         {
             path = newPath;
-            StopCoroutine("FollowPath");
-            StartCoroutine("FollowPath");
+            pathIndex = 0;
         }
-        else
-        {
-            Debug.Log("Error: path not found");
-        }
+        doMove = true;
+        prm.isProcessingPath = false;
     }
-    IEnumerator FollowPath()
+    public void startMoving(Vector3 newTarget)
     {
-        Vector3 currentWaypoint = path[0];
-        while (true)
+        // Set new target and start moving
+        
+        target = newTarget;
+        if (target != null && prm != null)
+            prm.RequestPath(transform.position, target, OnPathFound);
+    }
+    public bool isMoving()
+    {
+        return doMove;
+    }
+    public void stopMoving()
+    {
+        doMove = false;
+    }
+
+
+    private void Update()
+    {
+        if (doMove == false) return;
+        Vector3 currentWaypoint = (path != null) ? path[pathIndex] : Vector3.zero;
+        if (currentWaypoint == Vector3.zero) return;
+        
+        if (transform.position == currentWaypoint)
         {
-            if (transform.position == currentWaypoint)
+            pathIndex++;
+            if (pathIndex >= path.Length)
             {
-                targetIndex++;
-                if (targetIndex >= path.Length)
-                {
-                    yield break;
-                }
-                currentWaypoint = path[targetIndex];
+                return;
             }
-            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
-            yield return null;
         }
+        transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
     }
 }

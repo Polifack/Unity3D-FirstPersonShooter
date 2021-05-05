@@ -34,12 +34,10 @@ public class PlayerInteract : MonoBehaviour
             LayerMask target = getLayerMask();
             if ((target & 1 << hitInfo.collider.gameObject.layer) == 1 << hitInfo.collider.gameObject.layer)
             {
-                Debug.Log("Interactable hit");
                 Interactable ec = hitInfo.collider.gameObject.GetComponentInParent<Interactable>();
                 ec.onAim();
                 if (isInteracting())
                 {
-                    Debug.Log("Interacting hit");
                     ec.onInteract();
                 }
             }

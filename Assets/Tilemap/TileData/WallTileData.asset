@@ -18,5 +18,5 @@ MonoBehaviour:
     type: 3}
   isLadder: 0
   isWalkable: 0
-  gCost: 50
-  hCost: 50
+  gCost: 999
+  hCost: 999

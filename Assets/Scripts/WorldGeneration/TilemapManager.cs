@@ -8,15 +8,44 @@ public class TilemapManager : MonoBehaviour
     public Room belongingRoom;
     public bool showGrid = true;
 
+    public float nodeSize;
+
     private Tilemap tilemap;
     private Dictionary<TileBase, TileData> tileDictionary;
     private Node[,] nodeGrid;
 
-    private Vector2Int gridStartPosition;      // Position of the first tile
-    private Vector2Int gridSize;               // Vector that indicates the "shape" of the grid
-    private Vector2 gridWorldSize;          // Vector that stores height and weight of the grid
+    private Vector2Int gridStartPosition;       // Position of the first tile
+    private Vector2Int gridSize;                // Vector that indicates the "shape" of the grid
+    private Vector2 gridWorldSize;              // Vector that stores height and weight of the grid
 
     private List<TileData> tileDatas;
+    private int penaltyMin = 00;
+    private int penaltyMax = 99;
+
+    private void OnDrawGizmos()
+    {
+        //Marco princpal de la grid
+        //El valor de Y es 1 y el valor de Z es el gridWorld.y porque estamos trabajando en un espacio tridimensional.
+        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
+
+        //Dibujamos los nodos de la grid asignandoles un color segun sean 'walkables' o no
+        if (nodeGrid != null)
+        {
+            foreach (Node node in nodeGrid)
+            {
+                if (showGrid && node!=null)
+                {
+                    //Obtenemos el color del nodo relativo a su peso 
+                    Color weight = Color.Lerp(Color.white, Color.black, Mathf.InverseLerp(penaltyMin, penaltyMax,
+                        node.movementPenalty));
+
+                    Gizmos.color = (node.walkable ? weight : Color.red);
+                    Gizmos.DrawCube(node.worldPosition, Vector3.one * (nodeSize));
+                }
+            }
+        }
+    }
+
     private void Awake()
     {
         // Get tiledata from room
@@ -24,6 +53,8 @@ public class TilemapManager : MonoBehaviour
 
         // Get component and initialize dict
         tilemap = GetComponent<Tilemap>();
+        nodeSize = tilemap.cellSize.x;
+
         tileDictionary = new Dictionary<TileBase, TileData>();
 
         // Create a reference for each tileData and tiles
@@ -95,10 +126,12 @@ public class TilemapManager : MonoBehaviour
                 }
             }
         }
-        //BlurWeights(3);
+        BlurWeights(3);
+        
+        // just disable the tilemap renderer now, we are fine with 3d objects
+        GetComponent<TilemapRenderer>().enabled = false;
+        Destroy(GetComponent<TilemapRenderer>());
     }
-
-
     public void BlurWeights(int blurSize)
     {
         //If blurSize = 1 entonces estamos comparando con las 2 casillas colindantes, por lo que la matriz de kernel 
@@ -138,8 +171,11 @@ public class TilemapManager : MonoBehaviour
                 int addIndex = Mathf.Clamp(x + kernelExtents, 0, gridSize.x - 1);
 
                 //El valor de x, y va a ser el valor de x-1, y - penalizacion eliminado + penalizacion añadido
-                penaltiesHorizontalPass[x, y] = penaltiesHorizontalPass[x - 1, y] - nodeGrid[removeIndex, y].movementPenalty +
-                    nodeGrid[addIndex, y].movementPenalty;
+                if (nodeGrid[removeIndex, y]!=null && nodeGrid[addIndex, y] != null)
+                {
+                    penaltiesHorizontalPass[x, y] = penaltiesHorizontalPass[x - 1, y] - nodeGrid[removeIndex, y].movementPenalty +
+                        nodeGrid[addIndex, y].movementPenalty;
+                }
             }
 
         }
@@ -173,12 +209,23 @@ public class TilemapManager : MonoBehaviour
 
                 blurredPenalty = Mathf.RoundToInt((float)penaltiesVerticalPass[x, y] / (kernelSize * kernelSize));
 
+
                 //Asignamos el valor de desenfoque
-                nodeGrid[x, y].movementPenalty = blurredPenalty;
+                if (nodeGrid[x,y]!=null)
+                    nodeGrid[x, y].movementPenalty = blurredPenalty;
+
+                //Guardamos los valores maximos y minimos de las penalizaciones para poder dibujarlas en el gizmos
+                if (blurredPenalty > penaltyMax)
+                {
+                    penaltyMax = blurredPenalty;
+                }
+                if (blurredPenalty < penaltyMin)
+                {
+                    penaltyMin = blurredPenalty;
+                }
             }
         }
     }
-
     public int getNumberOfTiles()
     {
         return Mathf.CeilToInt(gridSize.x * gridSize.y);
