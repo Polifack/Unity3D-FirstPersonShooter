@@ -76,7 +76,6 @@ public class EnemyWalkState : EnemyState
         if (pathSuccess && newPath.Length>0)
         {
             path = newPath;
-            Debug.Log("Path Length:"+newPath.Length);
             pathIndex = 0;
             currentWaypoint = path[pathIndex];
         }

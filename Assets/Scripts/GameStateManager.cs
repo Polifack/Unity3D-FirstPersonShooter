@@ -51,9 +51,16 @@ public class PlayState : GameState
 {
     // State whenever the player is in the dungeon
     public float currentTime = 100;
+    public int currentMoney = 0;
+    
     public GameStateName getName()
     {
         return GameStateName.dungeon;
+    }
+
+    public void increaseMoney(int ammount)
+    {
+        currentMoney += ammount;
     }
 
     public void onEnter()
@@ -73,6 +80,7 @@ public class PlayState : GameState
 
             currentTime -= Time.deltaTime;
             UIManager.instance.setTime(currentTime);
+            UIManager.instance.setMoney(currentMoney);
 
             if (currentTime <= 0)
             {
@@ -107,6 +115,11 @@ public class GameStateManager : MonoBehaviour
             state = new PlayState();   
         }
         state.onEnter();
+    }
+
+    public GameState getState()
+    {
+        return state;
     }
 
     public void toState(GameState _state)

@@ -65,11 +65,10 @@ public class EnemyController : MonoBehaviour
     public void doShoot()
     {
         Vector3 playerPos = GameManager.instance.getPlayerPosition();
-        Vector3 shootDirection = (playerPos - transform.position);
+        Vector3 shootDirection = (playerPos - shootingPoint.transform.position);
 
         GameObject b = Instantiate(bulletGO, shootingPoint.position, Quaternion.identity);
         Bullet bullet = b.GetComponent<Bullet>();
-
         bullet.setup(shootDirection, damage, bulletSpeed);
 
         shootingCounter = 0;
@@ -79,7 +78,6 @@ public class EnemyController : MonoBehaviour
     {
         if (numberShootsCounter < numberShoots)
         {
-            Debug.Log(numberShootsCounter);
             currentState = currentState.toState(shootState);
             numberShootsCounter++;
         }

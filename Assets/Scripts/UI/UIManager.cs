@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
 
     public TextMeshProUGUI timeText;
+    public TextMeshProUGUI moneyText;
+    public HealthBar hpBar;
 
     private void Awake()
     {
@@ -17,7 +19,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        if (timeText==null)
+        if (timeText==null || moneyText==null)
         {
             Debug.LogError("Error > No text component");
         }
@@ -27,5 +29,16 @@ public class UIManager : MonoBehaviour
     {
         string textContent = "-- " + Mathf.Floor(ammount) + " --";
         timeText.text = textContent;
+    }
+
+    public void setMoney(int ammount)
+    {
+        string moneyContent = ammount + " $";
+        moneyText.text = moneyContent;
+    }
+
+    public void setHealth(float ammount)
+    {
+        hpBar.setValue(ammount);
     }
 }

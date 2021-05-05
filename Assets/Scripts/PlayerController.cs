@@ -46,11 +46,13 @@ public class PlayerController : MonoBehaviour
     public void takeDamage(int ammount)
     {
         currentHP -= ammount;
+        UIManager.instance.setHealth(currentHP);
     }
 
     public void heal(int ammount)
     {
         currentHP += ammount;
+        UIManager.instance.setHealth(currentHP);
     }
 
     private void Move(Vector3 movement, bool jump)
