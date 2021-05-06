@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class EnemyState
 {
-    public EnemyController ec;
+    public AbstractEnemyController ec;
 
     public abstract void onStateEnter();
     public abstract void onStateExit();
@@ -57,14 +57,34 @@ public class EnemyShootState : EnemyState
     }
 }
 
+public class EnemyBiteState : EnemyState
+{
+    public override void onStateEnter()
+    {
+        ec.animator.SetBool("BiteState", true);
+    }
+
+    public override void onStateExit()
+    {
+        ec.animator.SetBool("BiteState", false);
+    }
+
+    public override void stateUpdate()
+    {
+        //
+    }
+}
+
 public class EnemyWalkState : EnemyState
 {
     private Vector3[] path;
     private Vector3 currentWaypoint;
     private int pathIndex = 0;
 
+
     public override void onStateEnter()
     {
+        path = null;
         ec.animator.SetBool("WalkState", true);
     }
     public override void onStateExit()
@@ -99,7 +119,8 @@ public class EnemyWalkState : EnemyState
                 pathIndex++;
                 if (pathIndex >= path.Length)
                 {
-                    ec.pathRequest.RequestPath(ec.transform.position, ec.enemyTarget.transform.position, onPathFound);
+                    // if we finish the path
+                    path = null;
                     pathIndex = 0;
                 }
             }
@@ -109,7 +130,7 @@ public class EnemyWalkState : EnemyState
 
     public override void stateUpdate()
     {
-        ec.checkShoot();
+        ec.checkAttackCondition();
         checkPath();
     }
 }

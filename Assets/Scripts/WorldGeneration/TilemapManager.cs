@@ -11,7 +11,6 @@ public class TilemapManager : MonoBehaviour
     public float nodeSize;
 
     private Tilemap tilemap;
-    private TilemapRenderer tilemapRenderer;
     private Dictionary<TileBase, TileData> tileDictionary;
     private Node[,] nodeGrid;
 
@@ -54,7 +53,6 @@ public class TilemapManager : MonoBehaviour
 
         // Get component and initialize dict
         tilemap = GetComponent<Tilemap>();
-        tilemapRenderer = GetComponent<TilemapRenderer>();
         nodeSize = tilemap.cellSize.x;
 
         tileDictionary = new Dictionary<TileBase, TileData>();
@@ -129,10 +127,6 @@ public class TilemapManager : MonoBehaviour
             }
         }
         BlurWeights(3);
-
-        // just disable the tilemap renderer now, we are fine with 3d objects
-        //Destroy(tilemap);
-        Destroy(tilemapRenderer);
     }
     public void BlurWeights(int blurSize)
     {

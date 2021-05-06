@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public enum GameStateName
 {
@@ -32,7 +31,7 @@ public class LobbyState : GameState
     public void onEnter()
     {
         // Scene 0 -> Lobby Scene
-        SceneManager.LoadScene(0);
+        GameManager.instance.loadScene(0);
 
         // Lock mouse
         GameManager.instance.setMouseLock(true);
@@ -62,8 +61,9 @@ public class VictoryState : GameState
     public void onEnter()
     {
         // Scene 2 -> RunawayScene
+        GameManager.instance.loadScene(2);
+
         GameManager.instance.setMouseLock(false);
-        SceneManager.LoadScene(2);
     }
 
     public void onExit()
@@ -106,7 +106,7 @@ public class PlayState : GameState
         GameManager.instance.currentGameData.setMaxData(maxHealth, maxTime);
 
         // Load the scene
-        SceneManager.LoadScene(1);
+        GameManager.instance.loadScene(1);
     }
 
     public void onExit()

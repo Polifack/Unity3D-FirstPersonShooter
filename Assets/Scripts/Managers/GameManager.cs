@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject player;
 
+    private AsyncOperation asyncLoadLevel;
 
     private void Awake()
     {
@@ -43,10 +45,18 @@ public class GameManager : MonoBehaviour
         staticGameData.money += currentGameData.currentMoney;
     }
 
-    public void disableAllTilemaps()
+    public void loadScene(int number)
     {
-    }    
-
+        StartCoroutine("LoadLevel", number);
+    }
+    IEnumerator LoadLevel(int number)
+    {
+        asyncLoadLevel = SceneManager.LoadSceneAsync(number, LoadSceneMode.Single);
+        while (!asyncLoadLevel.isDone)
+        {
+            yield return null;
+        }
+    }
 
     public void setMouseLock(bool lockCursor)
     {

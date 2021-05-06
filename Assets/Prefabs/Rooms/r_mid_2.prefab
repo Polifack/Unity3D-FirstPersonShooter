@@ -237,11 +237,6 @@ MonoBehaviour:
   firstFloor: {fileID: 6878431509243299741}
   secondFloor: {fileID: 6878431509048872181}
   thirdFloor: {fileID: 6878431509640230826}
-  tileDatas:
-  - {fileID: 11400000, guid: 4a17f82bf7a43c8419f3eed0ed78eef2, type: 2}
-  - {fileID: 11400000, guid: 71dcf9134e49efc47a85ed1f26632689, type: 2}
-  - {fileID: 11400000, guid: 4c652b7d727fd1241a4b05570d99b397, type: 2}
-  - {fileID: 11400000, guid: d5055e1e5b328024db1ddce7341f8cff, type: 2}
   roomWorldSize: {x: 0, y: 0}
   x: 0
   y: 0
@@ -9080,7 +9075,7 @@ PrefabInstance:
     - target: {fileID: 3890644030731247013, guid: 89f07a77464406346b6a1b5c19ed2fba,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3890644030731247013, guid: 89f07a77464406346b6a1b5c19ed2fba,
         type: 3}
@@ -9121,6 +9116,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BasicEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890644030731247035, guid: 89f07a77464406346b6a1b5c19ed2fba,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89f07a77464406346b6a1b5c19ed2fba, type: 3}

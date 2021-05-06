@@ -43,7 +43,7 @@ public class Weapon : MonoBehaviour
                 LayerMask target = getLayerMask();
                 if ((target & 1 << hitInfo.collider.gameObject.layer) == 1 << hitInfo.collider.gameObject.layer)
                 {
-                    EnemyController ec = hitInfo.collider.gameObject.GetComponentInParent<EnemyController>();
+                    AbstractEnemyController ec = hitInfo.collider.gameObject.GetComponentInParent<AbstractEnemyController>();
                     GameObject b = Instantiate(bullet, hitInfo.point, shooter.transform.rotation);
 
                     ec.takeDamage(5);

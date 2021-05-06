@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 3890644029109490760}
   - component: {fileID: 4294351757800887077}
   - component: {fileID: 7459486745282461684}
-  - component: {fileID: 954367676903540238}
+  - component: {fileID: 281704901344720415}
   m_Layer: 10
   m_Name: Sprite
   m_TagString: Untagged
@@ -60,7 +60,7 @@ Transform:
   m_GameObject: {fileID: 3890644029109490761}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 2393004930023837956}
   m_Father: {fileID: 3890644030731247013}
@@ -105,7 +105,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7584289071408111503, guid: 2dcd489b0bb97534d99cf0c582fc1821,
+  m_Sprite: {fileID: -7461364442517561881, guid: 6da05ae4687e17a42b55a21cfa1ec30b,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -127,7 +127,7 @@ Animator:
   m_GameObject: {fileID: 3890644029109490761}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f9e6c0b7da34e7f419aafff5fa45f0a8, type: 2}
+  m_Controller: {fileID: 9100000, guid: f78c396b0d02a4f44b987359523b052e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -162,7 +162,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.28, y: 1.28, z: 0.2}
   m_Center: {x: 0, y: 0.64, z: 0}
---- !u!114 &954367676903540238
+--- !u!114 &281704901344720415
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -171,23 +171,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 3890644029109490761}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e683d91db164ce843ba9902231dcd64f, type: 3}
+  m_Script: {fileID: 11500000, guid: 50b7bccf63701774fb01643204c33bec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pathRequest: {fileID: 0}
   enemyTarget: {fileID: 0}
   belongingRoom: {fileID: 0}
   animator: {fileID: 3890644029109490760}
-  maxHealth: 25
-  movementSpeed: 3
-  damage: 5
-  bulletGO: {fileID: 7379294392476608663, guid: 1e40e11c75df34e41bc49ea28ff9e82e,
-    type: 3}
-  shootingPoint: {fileID: 2393004930023837956}
-  bulletSpeed: 5
-  weaponRange: 10
-  shootingTime: 3
-  numberShoots: 3
+  maxHealth: 250
+  movementSpeed: 7
+  damage: 10
+  biteRange: 3
+  biteDamageRange: 2
+  canBiteTime: 0
+  maxNumberBites: 0
 --- !u!1 &3890644030731247035
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3890644030731247013}
   m_Layer: 10
-  m_Name: BasicEnemy
+  m_Name: BossEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

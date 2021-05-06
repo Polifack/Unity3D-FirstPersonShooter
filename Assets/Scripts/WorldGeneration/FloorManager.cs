@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 public class FloorManager : MonoBehaviour
 {
@@ -15,7 +17,7 @@ public class FloorManager : MonoBehaviour
     private Vector3 instantiatePoint = Vector3.zero;
     
     
-    private void Start()
+    private void Awake()
     {
         roomDictionary = new Dictionary<Vector3, Room>();
         generate();
@@ -48,6 +50,22 @@ public class FloorManager : MonoBehaviour
         return r;
     }
 
+    private void disableAllTilemapRenderers()
+    {
+        List<GameObject> rootObjectsInScene = new List<GameObject>();
+        Scene scene = SceneManager.GetActiveScene();
+        scene.GetRootGameObjects(rootObjectsInScene);
+
+        for (int i = 0; i < rootObjectsInScene.Count; i++)
+        {
+            TilemapRenderer[] allComponents = rootObjectsInScene[i].GetComponentsInChildren<TilemapRenderer>(true);
+            for (int j = 0; j < allComponents.Length; j++)
+            {
+                Destroy(allComponents[j]);
+            }
+        }
+    }
+
     private void generate()
     {
         Vector3 startPoint = Vector3.zero;
@@ -75,5 +93,7 @@ public class FloorManager : MonoBehaviour
         // Instantiate boss room
         RoomData bossRoomData = shuffledBossRooms[0];
         instantiateRoom(bossRoomData);
+
+        disableAllTilemapRenderers();
     }
 }

@@ -63,36 +63,23 @@ public class Room : MonoBehaviour
 
         Ray r = new Ray(entryPoint.position, new Vector3(0, 2, 0));
         bool rh = Physics.Raycast(r, 2, GameManager.instance.whatIsPlayer);
+        
         if (rh)
         {
+
             foreach (GameObject door in Doors)
             {
                 Door d = door.GetComponent<Door>();
                 d.Close();
                 isPlaying = true;
             }
+
             foreach (GameObject enemy in Enemies)
             {
-                EnemyController e = enemy.GetComponentInChildren<EnemyController>();
+                AbstractEnemyController e = enemy.GetComponentInChildren<AbstractEnemyController>();
                 e.activateEnemy();
             }
         }
-    }
-
-    public void playerEnterRoom()
-    {
-        // Check if it is already cleared or is already being played
-        if (isCleared || isPlaying)
-            return;
-
-        foreach (GameObject door in Doors)
-        {
-            Door d = door.GetComponent<Door>();
-            d.Close();
-            isPlaying = true;
-        }
-
-
     }
 
     public void addDoor(GameObject door)
@@ -111,7 +98,7 @@ public class Room : MonoBehaviour
     {
         foreach (GameObject enemy in Enemies)
         {
-            EnemyController ec = enemy.GetComponentInChildren<EnemyController>();
+            AbstractEnemyController ec = enemy.GetComponentInChildren<AbstractEnemyController>();
             ec.doInit(GameManager.instance.getPlayer(),this, firstFloor.GetComponent<PathRequestManager>());
         }
     }
