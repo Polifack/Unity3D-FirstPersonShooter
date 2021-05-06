@@ -14,7 +14,6 @@ public class Room : MonoBehaviour
     public GameObject secondFloor;
     public GameObject thirdFloor;
 
-    public List<TileData> tileDatas;
     public Vector2 roomWorldSize;
 
     public float x, y, z;

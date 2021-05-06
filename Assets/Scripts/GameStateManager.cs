@@ -31,14 +31,45 @@ public class LobbyState : GameState
 
     public void onEnter()
     {
-        // load scene of the lobby
-        // load data
+        // Scene 0 -> Lobby Scene
         SceneManager.LoadScene(0);
+
+        // Lock mouse
+        GameManager.instance.setMouseLock(true);
+
+
     }
 
     public void onExit()
     {
-        // save data 
+        // Load partial data based on general data
+    }
+
+    public void Update()
+    {
+        // do nothing 
+    }
+}
+
+public class VictoryState : GameState
+{
+    // State whenever the player is in the lobby
+    public GameStateName getName()
+    {
+        return GameStateName.victoryScreen;
+    }
+
+    public void onEnter()
+    {
+        // Scene 2 -> RunawayScene
+        GameManager.instance.setMouseLock(false);
+        SceneManager.LoadScene(2);
+    }
+
+    public void onExit()
+    {
+        // Save partial data to general data
+        GameManager.instance.saveCurrentGameData();
     }
 
     public void Update()
@@ -52,6 +83,8 @@ public class PlayState : GameState
     // State whenever the player is in the dungeon
     public float currentTime = 100;
     public int currentMoney = 0;
+    public int currentFloor = 1;
+    public int enemiesKilled = 1;
     
     public GameStateName getName()
     {
@@ -65,12 +98,21 @@ public class PlayState : GameState
 
     public void onEnter()
     {
+        // Load max values from the static data
+        int maxHealth = GameManager.instance.staticGameData.maxHP;
+        int maxTime = GameManager.instance.staticGameData.maxTime;
+
+        // Set the max values in the current data
+        GameManager.instance.currentGameData.setMaxData(maxHealth, maxTime);
+
+        // Load the scene
         SceneManager.LoadScene(1);
     }
 
     public void onExit()
     {
-        // Save data
+        // Set the current game data to the manager
+        GameManager.instance.currentGameData.setData(currentMoney, currentFloor, enemiesKilled);
     }    
 
     public void Update()
@@ -112,7 +154,7 @@ public class GameStateManager : MonoBehaviour
     {
         if (state == null)
         {
-            state = new PlayState();   
+            state = new LobbyState();   
         }
         state.onEnter();
     }

@@ -140,7 +140,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bc8eaaf9cf39e2c43b02a89911e84302, type: 2}
+  - {fileID: 2100000, guid: 5fa76f36efc99b84b9bd366649ccf061, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -365,9 +365,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5226345428876533440}
   - component: {fileID: 4467038065398123862}
-  - component: {fileID: 5004371454522524924}
+  - component: {fileID: 7614662063658664906}
   m_Layer: 13
-  m_Name: world_ExitDoor
+  m_Name: world_FloorDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -404,7 +404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aimTime: 2
---- !u!114 &5004371454522524924
+--- !u!114 &7614662063658664906
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -413,6 +413,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 9141441527509871827}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4534eb241bb172b4d8a8db4cda3b2b97, type: 3}
+  m_Script: {fileID: 11500000, guid: b4ffdde9466418544ad487b1b4c3b5f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

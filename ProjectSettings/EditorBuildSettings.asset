@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Bank.unity
     guid: daefd797fad3e6347af16f4178d8b999
+  - enabled: 1
+    path: Assets/Scenes/RunawayScene.unity
+    guid: f54562dd1ff03f9439d322b69bb2692f
   m_configObjects: {}

@@ -4,7 +4,6 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     // Camera settings
-    public bool lockCursor;
     public float mouseSensitivity = 500;
     public Transform target;
     public Vector2 yRotationLimits = new Vector2(-70, 70);
@@ -34,12 +33,6 @@ public class CameraController : MonoBehaviour
         if (target == null)
         {
             Debug.LogWarning("[Warning]: no target found.");
-        }
-
-        if (lockCursor)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         }
     }
 
