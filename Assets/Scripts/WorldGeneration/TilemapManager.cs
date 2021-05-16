@@ -177,7 +177,7 @@ public class TilemapManager : MonoBehaviour
         }
 
         //Atravesamos la matriz verticalmente.
-        for (int x = 0; x < gridSize.y; x++)
+        for (int x = 0; x < gridSize.x; x++)
         {
             //Hacemos la acumulación del valor directamente en la matriz, sumando los valoers a lo obtenido en el parseo por filas.
             for (int y = -kernelExtents; y <= kernelExtents; y++)

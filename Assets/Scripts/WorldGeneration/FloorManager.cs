@@ -7,9 +7,17 @@ using UnityEngine.Tilemaps;
 
 public class FloorManager : MonoBehaviour
 {
-    public List<RoomData> midRoomList;
-    public List<RoomData> initRoomList;
-    public List<RoomData> bossRoomList;
+    public static FloorManager instance;
+
+    // First floor rooms
+    public List<RoomData> f1MidRoomList;
+    public List<RoomData> f1InitRoomList;
+    public List<RoomData> f1BossRoomList;
+
+    // Second floor rooms
+    public List<RoomData> f2MidRoomList;
+    public List<RoomData> f2InitRoomList;
+    public List<RoomData> f2BossRoomList;
 
     // Room dictionary for future functionalities
     private Dictionary<Vector3, Room> roomDictionary;
@@ -19,8 +27,9 @@ public class FloorManager : MonoBehaviour
     
     private void Awake()
     {
+        instance = this;
+        DontDestroyOnLoad(this);
         roomDictionary = new Dictionary<Vector3, Room>();
-        generate();
     }
 
     public void Shuffle<T>(IList<T> list)
@@ -66,13 +75,32 @@ public class FloorManager : MonoBehaviour
         }
     }
 
-    private void generate()
+    public void generate(int floorNumber)
     {
         Vector3 startPoint = Vector3.zero;
+        
+        List<RoomData> shuffledMidRoom = null;
+        List<RoomData> shuffledInitRooms = null;
+        List<RoomData> shuffledBossRooms = null;
 
-        List<RoomData> shuffledMidRoom = midRoomList;
-        List<RoomData> shuffledInitRooms = initRoomList;
-        List<RoomData> shuffledBossRooms = bossRoomList;
+        Debug.Log("generating");
+        switch (floorNumber)
+        {
+            case 1:
+                Debug.Log("first floor");
+                shuffledMidRoom = f1MidRoomList;
+                shuffledInitRooms = f1InitRoomList;
+                shuffledBossRooms = f1BossRoomList;
+                break;
+
+            case 2:
+                Debug.Log("second floor");
+                shuffledMidRoom = f2MidRoomList;
+                shuffledInitRooms = f2InitRoomList;
+                shuffledBossRooms = f2BossRoomList;
+                break;
+
+        }
 
         Shuffle(shuffledMidRoom);
         Shuffle(shuffledInitRooms);
@@ -81,19 +109,19 @@ public class FloorManager : MonoBehaviour
         // Instantiate init room
         RoomData initRoomData = shuffledInitRooms[0];
         Room initRoom = instantiateRoom(initRoomData);
-        // Set player in position
-        GameManager.instance.getPlayer().transform.position = initRoom.getSpawnPoint().position;
 
         // Instantiate middle room
         foreach (RoomData room in shuffledMidRoom)
         {
             instantiateRoom(room);
         }
-
+        
         // Instantiate boss room
         RoomData bossRoomData = shuffledBossRooms[0];
         instantiateRoom(bossRoomData);
 
+        // Set player in position
+        GameManager.instance.getPlayer().transform.position = initRoom.getSpawnPoint().position;
         disableAllTilemapRenderers();
     }
 }

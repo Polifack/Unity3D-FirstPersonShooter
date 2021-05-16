@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionWarpVictory : ActionAbstract
+public class ActionExitGame : ActionAbstract
 {
     public override void execute()
     {
-        GameStateManager.instance.toState(new VictoryState());
-        Destroy(this);
+        Application.Quit();
     }
+
 }

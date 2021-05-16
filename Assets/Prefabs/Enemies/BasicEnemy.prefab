@@ -181,13 +181,18 @@ MonoBehaviour:
   maxHealth: 25
   movementSpeed: 3
   damage: 5
+  nDrops: 2
+  dropChance: 0.65
+  drops:
+  - {fileID: 5883094036143758072, guid: 67980d719f1fac34d8e2dd69a0be5770, type: 3}
+  - {fileID: 728235156933482865, guid: f64af3138b25e894c9726c226c9659d5, type: 3}
   bulletGO: {fileID: 7379294392476608663, guid: 1e40e11c75df34e41bc49ea28ff9e82e,
     type: 3}
   shootingPoint: {fileID: 2393004930023837956}
   bulletSpeed: 5
   weaponRange: 10
   shootingTime: 3
-  numberShoots: 3
+  maxNumberShoots: 0
 --- !u!1 &3890644030731247035
 GameObject:
   m_ObjectHideFlags: 0

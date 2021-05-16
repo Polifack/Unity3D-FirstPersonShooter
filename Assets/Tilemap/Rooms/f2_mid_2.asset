@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea0616f2fea48db43ae9891371ff501c, type: 3}
-  m_Name: middle_1
+  m_Name: f2_mid_2
   m_EditorClassIdentifier: 
-  roomObject: {fileID: 6878431508752271474, guid: d4df772b1e2e7e446a5bd025f96790fd,
+  roomObject: {fileID: 6878431508752271474, guid: 2c30f398b8daaa54f9ff9f1b55bbaf21,
     type: 3}
   type: 1
   hasLeft: 1

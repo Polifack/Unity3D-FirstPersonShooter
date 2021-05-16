@@ -365,7 +365,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5226345428876533440}
   - component: {fileID: 4467038065398123862}
-  - component: {fileID: 7614662063658664906}
+  - component: {fileID: 1528038338615921130}
   m_Layer: 13
   m_Name: world_FloorDoor
   m_TagString: Untagged
@@ -404,7 +404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aimTime: 2
---- !u!114 &7614662063658664906
+--- !u!114 &1528038338615921130
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -413,6 +413,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 9141441527509871827}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4ffdde9466418544ad487b1b4c3b5f0, type: 3}
+  m_Script: {fileID: 11500000, guid: 0da8d36a18c30dd42906b2b4ffd13959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

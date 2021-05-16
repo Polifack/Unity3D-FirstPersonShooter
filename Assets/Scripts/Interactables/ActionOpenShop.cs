@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionWarpDungeon : ActionAbstract
+public class ActionOpenShop : ActionAbstract
 {
     public override void execute()
     {
-        GameStateManager.instance.enterDungeonState();
-    }
+        LobbyManager.instance.enableShop();
+    }    
 }

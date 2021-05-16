@@ -36,7 +36,6 @@ public class LobbyState : GameState
         // Lock mouse
         GameManager.instance.setMouseLock(true);
 
-
     }
 
     public void onExit()
@@ -62,14 +61,13 @@ public class VictoryState : GameState
     {
         // Scene 2 -> RunawayScene
         GameManager.instance.loadScene(2);
-
         GameManager.instance.setMouseLock(false);
     }
 
     public void onExit()
     {
         // Save partial data to general data
-        GameManager.instance.saveCurrentGameData();
+        GameManager.instance.saveStaticData();
     }
 
     public void Update()
@@ -78,19 +76,87 @@ public class VictoryState : GameState
     }
 }
 
+public class MainMenuState : GameState
+{
+    // State whenever the player is in the lobby
+    public GameStateName getName()
+    {
+        return GameStateName.mainMenu;
+    }
+
+    public void onEnter()
+    {
+        GameManager.instance.setMouseLock(false);
+    }
+
+    public void onExit()
+    {
+    }
+
+    public void Update()
+    {
+    }
+}
+public class DefeatState : GameState
+{
+    // State whenever the player is in the lobby
+    public GameStateName getName()
+    {
+        return GameStateName.defeatScreen;
+    }
+
+    public void onEnter()
+    {
+        GameManager.instance.loadScene(4);
+        GameManager.instance.setMouseLock(false);
+    }
+
+    public void onExit()
+    {
+    }
+
+    public void Update()
+    {
+    }
+}
+
 public class PlayState : GameState
 {
     // State whenever the player is in the dungeon
-    public float currentTime = 100;
-    public int currentMoney = 0;
-    public int currentFloor = 1;
-    public int enemiesKilled = 1;
+    public float currentTime;
+    public int currentMoney;
+    public int currentFloor;
+    public int enemiesKilled;
+
+    public void setInitialData()
+    {
+        // Data for when the player enters the dungeon
+
+        currentTime = GameManager.instance.staticGameData.maxTime;
+        currentMoney = 0;
+        currentFloor = 1;
+        enemiesKilled = 0;
+
+        // load the scene and generate
+        GameManager.instance.loadBankScene(currentFloor);
+    }
+
+    public void setNextFloorData()
+    {
+        // Data for when the player advances floor
+        currentTime = GameManager.instance.currentGameData.currentTime;
+        currentMoney = GameManager.instance.currentGameData.currentMoney;
+        enemiesKilled = GameManager.instance.currentGameData.enemiesKilled;
+        currentFloor = GameManager.instance.currentGameData.currentFloor+1;
+
+        // load the scene and generate
+        GameManager.instance.loadBankScene(currentFloor);
+    }
     
     public GameStateName getName()
     {
         return GameStateName.dungeon;
     }
-
     public void increaseMoney(int ammount)
     {
         currentMoney += ammount;
@@ -104,15 +170,12 @@ public class PlayState : GameState
 
         // Set the max values in the current data
         GameManager.instance.currentGameData.setMaxData(maxHealth, maxTime);
-
-        // Load the scene
-        GameManager.instance.loadScene(1);
     }
 
     public void onExit()
     {
         // Set the current game data to the manager
-        GameManager.instance.currentGameData.setData(currentMoney, currentFloor, enemiesKilled);
+        GameManager.instance.saveCurrentData(currentMoney, currentFloor, enemiesKilled, (int)currentTime);
     }    
 
     public void Update()
@@ -133,8 +196,6 @@ public class PlayState : GameState
     }
 }
 
-
-
 public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager instance;
@@ -154,7 +215,7 @@ public class GameStateManager : MonoBehaviour
     {
         if (state == null)
         {
-            state = new LobbyState();   
+            state = new MainMenuState();
         }
         state.onEnter();
     }
@@ -169,6 +230,20 @@ public class GameStateManager : MonoBehaviour
         state.onExit();
         state = _state;
         state.onEnter();
+    }
+
+    // Auxiliar functions
+    public void enterDungeonState()
+    {
+        toState(new PlayState());
+        PlayState ps = (PlayState)state;
+        ps.setInitialData();
+    }
+    public void goToNextFloor()
+    {
+        toState(new PlayState());
+        PlayState ps = (PlayState)state;
+        ps.setNextFloorData();
     }
 
     void Update()

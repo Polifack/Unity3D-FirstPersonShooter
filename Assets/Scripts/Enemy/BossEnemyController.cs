@@ -41,7 +41,7 @@ public class BossEnemyController : AbstractEnemyController
         }
 
         // Deal damage
-        GameManager.instance.getPlayer().GetComponent<PlayerController>().takeDamage(damage);
+        GameManager.instance.getPlayer().GetComponent<PlayerController>().doTakeDamage(damage);
     }
 
     public void getNextState()

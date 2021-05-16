@@ -7,6 +7,8 @@ public class PlayerInteract : MonoBehaviour
     // Class used by the player to interact with other items in the world
     // based on raycasting
 
+
+
     bool isInteracting()
     {
         return (Input.GetKey(KeyCode.E));
@@ -23,8 +25,11 @@ public class PlayerInteract : MonoBehaviour
         return GameManager.instance.whatIsInteractable;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
+        // The interaction should be done on fixedupdate to avoid
+        // doubleinteractions
+
         if (GameManager.instance == null) return;
 
         Ray shootingRay = getShootingRay();

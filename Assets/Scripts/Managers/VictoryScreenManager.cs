@@ -9,7 +9,6 @@ public class VictoryScreenManager : MonoBehaviour
     public TextMeshProUGUI floorText;
     public TextMeshProUGUI enemiesText;
 
-
     private void Start()
     {
         moneyText.text = "Money: " + GameManager.instance.currentGameData.currentMoney;

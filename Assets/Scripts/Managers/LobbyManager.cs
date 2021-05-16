@@ -9,7 +9,12 @@ public class LobbyManager : MonoBehaviour
     public HealthBar hpbar;
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI timeText;
+    public GameObject shop;
 
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
@@ -31,5 +36,22 @@ public class LobbyManager : MonoBehaviour
     public void updateCurrentHP()
     {
         hpbar.setValue(GameManager.instance.staticGameData.maxHP);
+    }
+
+    public void enableShop()
+    {
+        GameManager.instance.setMouseLock(false);
+        shop.SetActive(true);
+    }
+    public void disableShop()
+    {
+        GameManager.instance.setMouseLock(true);
+        shop.SetActive(false);
+    }
+
+    private void Update()
+    {
+        updateMoney();
+        updateTime();
     }
 }

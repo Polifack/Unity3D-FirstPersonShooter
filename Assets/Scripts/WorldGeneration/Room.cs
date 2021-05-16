@@ -7,9 +7,9 @@ public class Room : MonoBehaviour
 {
     public List<GameObject> Enemies;
     public List<GameObject> Doors;
+    public RoomEntryChecker entryPoint;
     public Transform playerSpawnPoint;
-    public Transform entryPoint;
-
+    
     public GameObject firstFloor;
     public GameObject secondFloor;
     public GameObject thirdFloor;
@@ -17,10 +17,6 @@ public class Room : MonoBehaviour
     public Vector2 roomWorldSize;
 
     public float x, y, z;
-
-    private bool isCleared = false;
-    private bool isPlaying = false;
-
 
     public void setGridData(Vector2 rws)
     {
@@ -32,7 +28,6 @@ public class Room : MonoBehaviour
         Enemies.Remove(enemy);
         if (Enemies.Count == 0)
         {
-            isCleared = true;
             doOpenDoors();
         }
     }
@@ -45,41 +40,21 @@ public class Room : MonoBehaviour
         }
     }
 
-
-    public void checkPlayerEnter()
+    public void activateRoom()
     {
-        // If the room is cleared or is already beeing played, exit
-        if (isCleared || isPlaying)
-            return;
-        
-        // If the room has no entry point, exit
-        if (entryPoint == null)
+        foreach (GameObject door in Doors)
         {
-            return;
+            Door d = door.GetComponent<Door>();
+            d.Close();
+        }
+
+        foreach (GameObject enemy in Enemies)
+        {
+            enemy.SetActive(true);
+            AbstractEnemyController e = enemy.GetComponentInChildren<AbstractEnemyController>();
+            e.activateEnemy();
         }
         
-        // Raycast a ray in the entry of the room
-        // This can be replaced by a "collider trigger enter"
-
-        Ray r = new Ray(entryPoint.position, new Vector3(0, 2, 0));
-        bool rh = Physics.Raycast(r, 2, GameManager.instance.whatIsPlayer);
-        
-        if (rh)
-        {
-
-            foreach (GameObject door in Doors)
-            {
-                Door d = door.GetComponent<Door>();
-                d.Close();
-                isPlaying = true;
-            }
-
-            foreach (GameObject enemy in Enemies)
-            {
-                AbstractEnemyController e = enemy.GetComponentInChildren<AbstractEnemyController>();
-                e.activateEnemy();
-            }
-        }
     }
 
     public void addDoor(GameObject door)
@@ -89,8 +64,6 @@ public class Room : MonoBehaviour
 
     public Transform getSpawnPoint()
     {
-        // Returns the player default spawn point
-        // useful for future developments and init rooms
         return playerSpawnPoint;
     }
 
@@ -100,10 +73,10 @@ public class Room : MonoBehaviour
         {
             AbstractEnemyController ec = enemy.GetComponentInChildren<AbstractEnemyController>();
             ec.doInit(GameManager.instance.getPlayer(),this, firstFloor.GetComponent<PathRequestManager>());
+            enemy.SetActive(false);
         }
-    }
-    private void Update()
-    {
-        checkPlayerEnter();
+
+        if (entryPoint!=null)
+            entryPoint.setRoom(this);
     }
 }

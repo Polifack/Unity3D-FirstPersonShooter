@@ -14,6 +14,11 @@ public abstract class AbstractEnemyController : MonoBehaviour
     public float movementSpeed;
     public int damage;
 
+    
+    public int nDrops;
+    public float dropChance;
+    public GameObject[] drops;
+
     // EnemyState
     EnemyState currentState;
 
@@ -70,6 +75,18 @@ public abstract class AbstractEnemyController : MonoBehaviour
         // Common function
         belongingRoom.doRemoveEnemy(transform.parent.gameObject);
         Destroy(gameObject);
+
+        for (int i = 0; i < nDrops; i++)
+        {
+            int choice = Random.Range(0, drops.Length);
+            float chance = Random.Range(0, 1);
+            if (chance < dropChance)
+            {
+                Random.InitState((int)System.DateTime.Now.Ticks);
+                Instantiate(drops[choice], (transform.position + (new Vector3(Random.Range(1, 2), Random.Range(1, 2), -0.25f))), Quaternion.identity);
+            }
+                
+        }
     }
 
     // Update the state

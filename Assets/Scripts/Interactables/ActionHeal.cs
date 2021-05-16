@@ -9,6 +9,6 @@ public class ActionHeal : ActionAbstract
     public override void execute()
     {
         PlayerController pc = GameManager.instance.getPlayer().GetComponent<PlayerController>();
-        pc.heal(ammount);
+        pc.doTakeHealing(ammount);
     }
 }

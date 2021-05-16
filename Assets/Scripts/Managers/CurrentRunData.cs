@@ -5,11 +5,12 @@ using UnityEngine;
 public class CurrentRunData
 {
     // Class that defines the data for the current run
-    // This will be used to save afterwards and for the recap screen
+    // This will be used to save afterwards and for the victory screen
 
     public int currentMoney;
     public int maxHP;
     public int maxTime;
+    public int currentTime;
     public int currentFloor;
     public int enemiesKilled;
 
@@ -19,11 +20,12 @@ public class CurrentRunData
         maxTime = maxtime;
     }
 
-    public void setData(int m, int f, int e)
+    public void setData(int m, int f, int e, int t)
     {
         currentMoney = m;
         currentFloor = f;
         enemiesKilled = e;
+        currentTime = t;
     }
 
 }

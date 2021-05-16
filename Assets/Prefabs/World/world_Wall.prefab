@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7420267791659994794}
   - component: {fileID: 1840348279804542505}
   - component: {fileID: 2596378122584276546}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5226345428876533440}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: world_Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
