@@ -8,7 +8,8 @@ public enum GameStateName
     dungeon,
     mainMenu,
     victoryScreen,
-    defeatScreen
+    defeatScreen,
+    timeoutScreen
 }
 
 public interface GameState
@@ -30,8 +31,7 @@ public class LobbyState : GameState
 
     public void onEnter()
     {
-        // Scene 0 -> Lobby Scene
-        GameManager.instance.loadScene(0);
+        GameManager.instance.loadScene(1);
 
         // Lock mouse
         GameManager.instance.setMouseLock(true);
@@ -59,8 +59,7 @@ public class VictoryState : GameState
 
     public void onEnter()
     {
-        // Scene 2 -> RunawayScene
-        GameManager.instance.loadScene(2);
+        GameManager.instance.loadScene(5);
         GameManager.instance.setMouseLock(false);
     }
 
@@ -103,6 +102,28 @@ public class DefeatState : GameState
     public GameStateName getName()
     {
         return GameStateName.defeatScreen;
+    }
+
+    public void onEnter()
+    {
+        GameManager.instance.loadScene(3);
+        GameManager.instance.setMouseLock(false);
+    }
+
+    public void onExit()
+    {
+    }
+
+    public void Update()
+    {
+    }
+}
+public class TimeoutState : GameState
+{
+    // State whenever the player is in the lobby
+    public GameStateName getName()
+    {
+        return GameStateName.timeoutScreen;
     }
 
     public void onEnter()
@@ -190,7 +211,9 @@ public class PlayState : GameState
             if (currentTime <= 0)
             {
                 // Timed out
-                // Spawn strong enemies in start point
+                // for future versions spawn strong enemies in start point
+                // for now just show a screen
+                GameStateManager.instance.toState(new TimeoutState());
             }
         }
     }

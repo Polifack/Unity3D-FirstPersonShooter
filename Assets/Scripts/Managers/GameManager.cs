@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
         // Sample values
         staticGameData.maxHP = 100;
-        staticGameData.maxTime = 100;
+        staticGameData.maxTime = 30;
         staticGameData.money = 0;
     }
 
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator LoadBankScene(int fn)
     {
-        asyncLoadLevel = SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
+        asyncLoadLevel = SceneManager.LoadSceneAsync(2, LoadSceneMode.Single);
         while (!asyncLoadLevel.isDone)
         {
             yield return null;

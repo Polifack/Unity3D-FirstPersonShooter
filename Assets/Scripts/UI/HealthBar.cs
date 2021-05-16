@@ -16,6 +16,7 @@ public class HealthBar : MonoBehaviour
         maxWidth = filler.rectTransform.localScale.x;
 
         hpText.text = maxHP + "/" + maxHP;
+        setValue(maxHP);
     }
 
     public void setValue(float newVal)
