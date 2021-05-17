@@ -26,12 +26,14 @@ public class BossEnemyController : AbstractEnemyController
     }
     public override void setDeathState()
     {
+        AudioManager.instance.playEnemyDeathSFX();
         goToState(dieState);
     }
     
 
     public void doBite()
     {
+        AudioManager.instance.playBossGrowlSFX();
         canBiteCounter = 0;
 
         // If the player moves quickly dont deal him damage

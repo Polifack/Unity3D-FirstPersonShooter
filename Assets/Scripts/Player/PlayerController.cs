@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 5f;
     public int maxHP = 100;
     private int currentHP;
+    public float invulnTime = 0.5f;
+    private float invulnTimeCtr = 0;
 
     // Movement management
     private Rigidbody rigidBody;
@@ -22,6 +24,10 @@ public class PlayerController : MonoBehaviour
 
     public void doTakeDamage(int ammount)
     {
+        // If is not vulnerable return 
+        if (invulnTimeCtr < invulnTime) return;
+
+        AudioManager.instance.playPlayerHurtSFX();
         currentHP -= ammount;
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
         if (currentHP == 0)
@@ -64,6 +70,10 @@ public class PlayerController : MonoBehaviour
         //Calcular direccion movimiento respecto a la camara
         cameraDirection = Vector3.Scale(mainCamera.forward, new Vector3(1, 1, 0)).normalized;
         movementVector = yMovement * cameraDirection + xMovement * mainCamera.right;
+
+        // Update invulnerability 
+        if (invulnTimeCtr<invulnTime)
+        invulnTimeCtr += Time.deltaTime;
 
         //Aplicamos el movimiento
         Move(movementVector);

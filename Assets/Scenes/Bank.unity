@@ -624,7 +624,7 @@ MonoBehaviour:
   bullet: {fileID: 7731583187922164529, guid: d9645eda141f9514db895e17d7b560f5, type: 3}
   shooter: {fileID: 1153492522}
   anim: {fileID: 1433905978}
-  MaxCD: 0.05
+  MaxCD: 1
   currentCD: 0
 --- !u!1 &1628119792
 GameObject:

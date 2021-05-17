@@ -10,8 +10,9 @@ public class Weapon : MonoBehaviour
     public Animator anim;
 
     // data
-    public float MaxCD = 10;
-    public float currentCD = 0;
+    private int damage = 5;
+    private float MaxCD = 0.5f;
+    private float currentCD = 0;
 
     bool isShooting()
     {
@@ -36,7 +37,8 @@ public class Weapon : MonoBehaviour
 
        if (isShooting())
        {
-            anim.SetTrigger("shoot");
+            anim.SetBool("isShooting", true);
+            AudioManager.instance.playPlayerShootSFX();
             Ray shootingRay = getShootingRay();
             RaycastHit hitInfo;
             if (Physics.Raycast(shootingRay, out hitInfo)){
@@ -46,10 +48,15 @@ public class Weapon : MonoBehaviour
                     AbstractEnemyController ec = hitInfo.collider.gameObject.GetComponentInParent<AbstractEnemyController>();
                     GameObject b = Instantiate(bullet, hitInfo.point, shooter.transform.rotation);
 
-                    ec.takeDamage(5);
+                    ec.takeDamage(damage);
                 }
             }
+            
             currentCD = 0;
        }
+        else
+        {
+            anim.SetBool("isShooting", false);
+        }
     }
 }

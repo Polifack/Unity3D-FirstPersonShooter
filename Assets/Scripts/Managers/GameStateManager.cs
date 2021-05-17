@@ -33,6 +33,9 @@ public class LobbyState : GameState
     {
         GameManager.instance.loadScene(1);
 
+        // Set bgm
+        AudioManager.instance.playLobbyMusic();
+
         // Lock mouse
         GameManager.instance.setMouseLock(true);
 
@@ -60,6 +63,7 @@ public class VictoryState : GameState
     public void onEnter()
     {
         GameManager.instance.loadScene(5);
+        AudioManager.instance.playVictoryMusic();
         GameManager.instance.setMouseLock(false);
     }
 
@@ -85,7 +89,11 @@ public class MainMenuState : GameState
 
     public void onEnter()
     {
+        // Lock mouse
         GameManager.instance.setMouseLock(false);
+
+        // Play bgm
+        AudioManager.instance.playMainMenuMusic();
     }
 
     public void onExit()
@@ -107,6 +115,7 @@ public class DefeatState : GameState
     public void onEnter()
     {
         GameManager.instance.loadScene(3);
+        AudioManager.instance.playDefeatMusic();
         GameManager.instance.setMouseLock(false);
     }
 
@@ -129,6 +138,7 @@ public class TimeoutState : GameState
     public void onEnter()
     {
         GameManager.instance.loadScene(4);
+        AudioManager.instance.playDefeatMusic();
         GameManager.instance.setMouseLock(false);
     }
 
@@ -160,6 +170,9 @@ public class PlayState : GameState
 
         // load the scene and generate
         GameManager.instance.loadBankScene(currentFloor);
+
+        // Play the music
+        AudioManager.instance.playLevelMusic();
     }
 
     public void setNextFloorData()
@@ -172,6 +185,9 @@ public class PlayState : GameState
 
         // load the scene and generate
         GameManager.instance.loadBankScene(currentFloor);
+
+        //we dont play the music here, just continue from before
+
     }
     
     public GameStateName getName()

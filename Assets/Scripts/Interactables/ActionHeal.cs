@@ -8,6 +8,7 @@ public class ActionHeal : ActionAbstract
 
     public override void execute()
     {
+        AudioManager.instance.playHealthPickupSFX();
         PlayerController pc = GameManager.instance.getPlayer().GetComponent<PlayerController>();
         pc.doTakeHealing(ammount);
     }

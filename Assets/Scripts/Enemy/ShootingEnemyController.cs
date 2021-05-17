@@ -30,11 +30,14 @@ public class ShootingEnemyController : AbstractEnemyController
     }
     public override void setDeathState()
     {
+        AudioManager.instance.playEnemyDeathSFX();
         goToState(dieState);
     }
 
     public void doShoot()
     {
+        AudioManager.instance.playEnemyShootSFX();
+
         Vector3 playerPos = GameManager.instance.getPlayerPosition();
         Vector3 shootDirection = (playerPos - shootingPoint.transform.position);
 

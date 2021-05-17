@@ -8,9 +8,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    // Game Data
     public CurrentRunData currentGameData = new CurrentRunData();
     public GameData staticGameData = new GameData();
 
+    // Layers
     public LayerMask whatIsPlayer;
     public LayerMask whatIsGround;
     public LayerMask whatIsEnemy;    
@@ -18,9 +20,13 @@ public class GameManager : MonoBehaviour
     public LayerMask whatIsInteractable;
     public LayerMask whatIsWall;
 
+    // Tiles
     public List<TileData> tileDatas;
 
+    // Player
     private GameObject player;
+
+    // Load
     private AsyncOperation asyncLoadLevel;
 
     private void Awake()
@@ -30,14 +36,13 @@ public class GameManager : MonoBehaviour
 
         // Sample values
         staticGameData.maxHP = 100;
-        staticGameData.maxTime = 30;
+        staticGameData.maxTime = 50;
         staticGameData.money = 0;
     }
 
     public void saveStaticData()
     {
         // the only data that we will save is the current money
-        Debug.Log("saving");
         staticGameData.updateMoney(currentGameData.currentMoney);
     }
     public void saveCurrentData(int money, int floor, int enemies, int time)
