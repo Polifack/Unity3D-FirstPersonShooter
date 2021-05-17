@@ -83,18 +83,15 @@ public class FloorManager : MonoBehaviour
         List<RoomData> shuffledInitRooms = null;
         List<RoomData> shuffledBossRooms = null;
 
-        Debug.Log("generating");
         switch (floorNumber)
         {
             case 1:
-                Debug.Log("first floor");
                 shuffledMidRoom = f1MidRoomList;
                 shuffledInitRooms = f1InitRoomList;
                 shuffledBossRooms = f1BossRoomList;
                 break;
 
             case 2:
-                Debug.Log("second floor");
                 shuffledMidRoom = f2MidRoomList;
                 shuffledInitRooms = f2InitRoomList;
                 shuffledBossRooms = f2BossRoomList;

@@ -67,7 +67,6 @@ public class GameManager : MonoBehaviour
         }
         if (FloorManager.instance != null)
         {
-            Debug.Log("generating floor for real");
             FloorManager.instance.generate(fn);
         }
     }
